@@ -1,0 +1,4 @@
+Tiene usuarios
+Tiene mascotas (relacionadas con usuarios ManyToOne)
+Tiene citas (relacionadas con mascotas ManyToOne)
+Tiene historial (relacionado con cita OneToOne y usuario creador ManyToOne)

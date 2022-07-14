@@ -1,0 +1,39 @@
+{% extends 'components/layout.html' %}
+
+{% block content %}
+<div class="row justify-content-center align-items-center">
+    <div class="col-12">
+        <div class="card table-responsive shadow">
+            <table class="m-0 table table-striped table-borderless table-hover">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Nombre</th>
+                        <th>Tipo</th>
+                        <th class="text-center">Sexo</th>
+                        <th>Fecha de nacimiento</th>
+                    </tr>
+                </thead>
+                <tbody class=" align-middle text-nowrap">
+                    <tr>
+                        <th class="shrink">
+                            <div class="d-flex gap-3">
+                                <button type="button" class="p-0 btn btn-link">
+                                    <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                                </button>
+                                <button type="button" class="p-0 btn btn-link">
+                                    <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </th>
+                        <th>Nala</th>
+                        <td>Perro</td>
+                        <td class="text-center"><i class="fas fa-venus"></i></td>
+                        <td>08/10/2022</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

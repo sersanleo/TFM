@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="/front/css/bootstrap.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/d31193916e.js" crossorigin="anonymous"></script>
+  <title>PetClinic</title>
+</head>
+
+<body>
+  <div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
+      <div class="container-md">
+        <a class="navbar-brand font-Lobster" href="#">
+          <i class="fas fa-paw"></i> PetClinic
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav gap-lg-2 me-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">
+                <i class="fas fa-fw fa-home"></i> Inicio
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-fw fa-calendar-day"></i> Citas
+              </a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav gap-lg-2 mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                Iniciar sesión
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                Registrarme
+              </a>
+            </li>
+            <li class="nav-item">
+              <div class="dropdown">
+                <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                  Mi cuenta
+                </button>
+                <div class="dropdown-menu text-center">
+                  <a class="dropdown-item d-flex gap-1 align-items-center" href="/admin">
+                    <i class="fas fa-fw fa-cog" aria-hidden="true"></i><span class="flex-grow-1">Administrar</span>
+                  </a>
+                  <hr class="dropdown-divider" role="separator">
+                  <a class="dropdown-item text-danger d-flex gap-1 align-items-center" href="/logout"><i
+                      class="fas fa-fw fa-sign-out-alt" aria-hidden="true">
+                    </i><span class="flex-grow-1">Cerrar sesión</span>
+                  </a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-md p-2 p-md-3 pt-4 pt-sm-5 pt-md-5">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-12 col-sm-10 col-md-7 col-xl-5 col-xxl-4">
+          <div class="card shadow">
+            <div class="card-body text-center">
+              <div class="d-flex flex-column gap-3">
+                <div class="form-floating">
+                  <input id="email" type="email" class="form-control" autocomplete="username"
+                    placeholder="Correo electrónico" required />
+                  <label for="email">Correo electrónico</label>
+                </div>
+                <div class="form-floating">
+                  <input id="password" type="password" class="form-control" autocomplete="current-password"
+                    placeholder="Contraseña" required />
+                  <label for="password">Contraseña</label>
+                </div>
+                <input type="submit" class="btn btn-primary btn-lg" value="Iniciar sesión" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"></script>
+  </div>
+</body>
+
+</html>
