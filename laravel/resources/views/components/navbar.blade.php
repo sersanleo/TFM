@@ -1,6 +1,4 @@
-<div>
-    <!-- An unexamined life is not worth living. - Socrates -->
-</div><nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
     <div class="container-md">
         <div class="navbar-brand font-Lobster user-select-none">
             PetClinic
