@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function pets()
+    {
+        return $this->morphOne(User::class, 'owner');
+    }
+
+    public function appointments()
+    {
+        return $this->morphOne(Appointment::class, 'vet');
+    }
 }
