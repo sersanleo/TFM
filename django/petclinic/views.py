@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect, render
 from django.template.defaulttags import register
-from django.contrib.auth import logout
+
+from .forms import *
 
 
 @register.filter('startswith')
@@ -15,6 +17,13 @@ def index(request):
 
 
 def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
     return render(request, 'login.html')
 
 
@@ -24,4 +33,11 @@ def logout_view(request):
 
 
 def register(request):
-    return render(request, 'register.html')
+    if request.method == 'POST':
+        form = RegisterForm(request.POST, label_suffix='')
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = RegisterForm(label_suffix='')
+    return render(request, 'register.html', {'form': form})

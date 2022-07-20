@@ -3,64 +3,114 @@
 {% block content %}
 <div class="row justify-content-center align-items-center">
     <div class="col-12 col-lg-7">
-        <div class="card shadow">
-            <div class="card-body text-center">
+        <form class="card shadow" method="post">
+            {% csrf_token %}
+            <div class="card-body">
                 <div class="row g-3">
                     <div class="col-12">
-                        <div class="form-floating">
-                            <input id="email" name="email" type="email" class="form-control" autocomplete="email"
-                                placeholder="Correo electrónico" required />
-                            <label for="email">Correo electrónico</label>
+                        {% with field=form.email %}
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
                         </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                        {% endwith %}
                     </div>
                     <div class="col-12">
-                        <div class="form-floating">
-                            <input id="password" name="password" type="password" class="form-control"
-                                autocomplete="new-password" placeholder="Contraseña" required />
-                            <label for="password">Contraseña</label>
+                        {% with field=form.password %}
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
                         </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                        {% endwith %}
                     </div>
                     <div class="col-12">
-                        <div class="form-floating">
-                            <input id="repeat-password" name="repeat-password" type="password" class="form-control"
-                                autocomplete="new-password" placeholder="Contraseña" required />
-                            <label for="repeat-password">Repita la contraseña</label>
+                        {% with field=form.repeat_password %}
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
                         </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                        {% endwith %}
                     </div>
                     <div class="col-12 col-sm-5">
-                        <div class="form-floating">
-                            <input id="name" name="name" type="text" class="form-control" autocomplete="given-name"
-                                placeholder="Nombre" required />
-                            <label for="name">Nombre</label>
+                        {% with field=form.first_name %}
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
                         </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                        {% endwith %}
                     </div>
                     <div class="col-12 col-sm-7">
-                        <div class="form-floating">
-                            <input id="surname" name="surname" type="text" class="form-control"
-                                autocomplete="family-name" placeholder="Apellidos" required />
-                            <label for="surname">Apellidos</label>
+                        {% with field=form.last_name %}
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
                         </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                        {% endwith %}
                     </div>
                     <div class="col-12">
-                        <div class="form-floating">
-                            <input id="address" name="address" type="text" class="form-control" placeholder="Dirección"
-                                required />
-                            <label for="birthday">Dirección</label>
+                        {% with field=form.address %}
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
                         </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                        {% endwith %}
                     </div>
                     <div class="col-12">
-                        <div class="form-floating">
-                            <input id="birthday" name="birthday" type="date" class="form-control" autocomplete="bday"
-                                placeholder="Fecha de nacimiento" required />
-                            <label for="birthday">Fecha de nacimiento</label>
+                        {% with field=form.birthday %}
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
+                        </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                    {% if form.non_field_errors %}
+                    <div class="col-12">
+                        <div class="invalid-feedback d-block m-0">
+                            {{ form.non_field_errors }}
                         </div>
                     </div>
+                    {% endif %}
                     <div class="col-12 d-grid">
                         <input type="submit" class="btn btn-primary btn-lg" value="Registrarme" />
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 {% endblock %}

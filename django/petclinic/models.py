@@ -1,7 +1,8 @@
-from django.contrib.auth.models import AbstractUser
+from datetime import date
+
+from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.validators import *
 from django.db.models import *
-from django.contrib.auth.models import AbstractUser, BaseUserManager
 
 '''
 https://www.fomfus.com/articles/how-to-use-email-as-username-for-django-authentication-removing-the-username/
@@ -42,12 +43,13 @@ class UserManager(BaseUserManager):
 
 class User(AbstractUser):  # get_user_model()
     username = None
-    email = EmailField(unique=True)
+    email = EmailField('Correo electrónico', unique=True)
     address = CharField('Dirección', max_length=300, null=False)
-    birthday = DateField('Cumpleaños', null=False)
+    birthday = DateField('Cumpleaños', null=False,
+                         validators=(MaxValueValidator(date.today),))
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ('address', 'birthday', 'first_name', 'last_name')
+    REQUIRED_FIELDS = ('first_name', 'last_name', 'address', 'birthday')
 
     objects = UserManager()
 
