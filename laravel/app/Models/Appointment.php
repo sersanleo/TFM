@@ -12,4 +12,14 @@ class Appointment extends Model
     protected $casts = [
         'date' => 'datetime:Y-m-d',
     ];
+
+    public function vet()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function pet()
+    {
+        return $this->belongsTo(Pet::class);
+    }
 }

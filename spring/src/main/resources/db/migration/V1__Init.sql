@@ -1,0 +1,14 @@
+create sequence hibernate_sequence start with 1 increment by 1;
+create table appointment (id bigint not null, annotations longtext, created_at datetime(6) not null, date datetime(6) not null, updated_at datetime(6) not null, pet_id bigint not null, vet_id bigint not null, primary key (id)) engine=InnoDB;
+create table pet (id bigint not null, annotations longtext, birthday date, created_at datetime(6) not null, name varchar(30) not null, sex integer, updated_at datetime(6) not null, race_id bigint not null, user_id bigint not null, primary key (id)) engine=InnoDB;
+create table pet_race (id bigint not null, race varchar(30), species_id bigint not null, primary key (id)) engine=InnoDB;
+create table pet_species (id bigint not null, name varchar(20) not null, primary key (id)) engine=InnoDB;
+create table user (id bigint not null, address varchar(300) not null, birthday date not null, email varchar(254) not null, primary key (id)) engine=InnoDB;
+alter table pet_race add constraint UKgcne1pllj523oyn8nifjn8hc2 unique (species_id, race);
+alter table pet_species add constraint UK_513lv2t141tl0pieqov4vxlgf unique (name);
+alter table user add constraint UK_ob8kqyqqgmefl0aco34akdtpe unique (email);
+alter table appointment add constraint FK8y0it8yrd322ps2jklm5f8e07 foreign key (pet_id) references pet (id);
+alter table appointment add constraint FKbidbah9ubxvfd66a82hql55de foreign key (vet_id) references user (id);
+alter table pet add constraint FKnsbnumvje8y87vp80n47ia058 foreign key (race_id) references pet_race (id);
+alter table pet add constraint FK9hxka0oqkd15dmqstdarori08 foreign key (user_id) references user (id);
+alter table pet_race add constraint FKc5mhu0y2p8vbkdsbu3wxg6yfu foreign key (species_id) references pet_species (id);

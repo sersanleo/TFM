@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -44,11 +43,11 @@ class User extends Authenticatable
 
     public function pets()
     {
-        return $this->morphOne(User::class, 'owner');
+        return $this->hasMany(User::class, 'owner');
     }
 
     public function appointments()
     {
-        return $this->morphOne(Appointment::class, 'vet');
+        return $this->hasMany(Appointment::class, 'vet');
     }
 }

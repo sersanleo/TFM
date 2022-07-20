@@ -15,13 +15,18 @@ class Pet extends Model
 {
     use HasFactory;
 
-    public function appointments()
-    {
-        return $this->morphOne(Appointment::class, 'pet');
-    }
-
     protected $casts = [
         'birthday' => 'date:Y-m-d',
         'sex' => Sexes::class,
     ];
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function race()
+    {
+        return $this->belongsTo(PetRace::class);
+    }
 }

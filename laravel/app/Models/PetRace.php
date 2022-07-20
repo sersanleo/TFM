@@ -11,8 +11,8 @@ class PetRace extends Model
 
     protected $table = 'pet_race';
 
-    public function pets()
+    public function species()
     {
-        return $this->morphOne(Pet::class, 'race');
+        return $this->belongsTo(PetSpecies::class);
     }
 }

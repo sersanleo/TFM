@@ -10,9 +10,4 @@ class PetSpecies extends Model
     use HasFactory;
 
     protected $table = 'pet_species';
-
-    public function races()
-    {
-        return $this->morphOne(PetRace::class, 'race');
-    }
 }
