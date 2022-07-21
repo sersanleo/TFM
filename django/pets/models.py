@@ -1,6 +1,8 @@
+from datetime import date
+
+from django.contrib.auth import get_user_model
 from django.core.validators import *
 from django.db.models import *
-from django.contrib.auth import get_user_model
 
 
 class PetSpecies(Model):
@@ -34,7 +36,7 @@ class PetRace(Model):
     objects = Manager()
 
     def __str__(self):
-        return '{0} {1}'.format(self.species.name, self.race.lower()) if self.race else self.species.name
+        return '{0} ({1})'.format(self.species.name, self.race.lower()) if self.race else self.species.name
 
 
 class Pet(Model):
@@ -50,8 +52,11 @@ class Pet(Model):
     name = CharField('Nombre', max_length=30, blank=False, null=False)
     sex = CharField('Sexo', choices=Sexes.choices,
                     max_length=1, blank=True, null=True)
-    birthday = DateField('Cumpleaños', blank=True, null=True)
+    birthday = DateField('Cumpleaños', blank=True, null=True,
+                         validators=(MaxValueValidator(date.today),))
     annotations = TextField('Anotaciones', blank=True, null=True)
+    deceased = BooleanField(
+        '¿Ha fallecido?', default=False, blank=True, null=False)
 
     created_at = DateTimeField(null=False,  auto_now_add=True)
     updated_at = DateTimeField(null=False,  auto_now=True)
@@ -64,3 +69,11 @@ class Pet(Model):
 
     def __str__(self):
         return self.name
+
+    class PetQuerySet(QuerySet):
+        def visible_by(self, user):
+            if user.is_superuser:
+                return self.all()
+            return self.filter(owner=user)
+
+    objects = PetQuerySet().as_manager()

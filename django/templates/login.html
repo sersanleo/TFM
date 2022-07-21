@@ -7,26 +7,51 @@
             {% csrf_token %}
             <div class="card-body text-center">
                 <div class="d-flex flex-column gap-3">
-                    <div class="form-floating">
-                        <input id="email" type="email" name="email" class="form-control" autocomplete="username"
-                            placeholder="Correo electrónico" value="{{ request.POST.email }}" required />
-                        <label for="email">Correo electrónico</label>
+                    <div class="col-12">
+                        {% with field=form.username %}
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
+                        </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% elif field.help_text %}
+                        <div class="form-text">
+                            {{ field.help_text }}
+                        </div>
+                        {% endif %}
+                        {% endwith %}
                     </div>
-                    <div class="form-floating">
-                        <input id="password" type="password" name="password" class="form-control"
-                            autocomplete="current-password" placeholder="Contraseña" required />
-                        <label for="password">Contraseña</label>
+                    <div class="col-12">
+                        {% with field=form.password %}
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
+                        </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% elif field.help_text %}
+                        <div class="form-text">
+                            {{ field.help_text }}
+                        </div>
+                        {% endif %}
+                        {% endwith %}
                     </div>
-                    {% if request.POST %}
+                    {% if form.non_field_errors %}
                     <div class="col-12">
                         <div class="invalid-feedback d-block m-0">
-                            Credenciales erróneas.
+                            {{ form.non_field_errors }}
                         </div>
                     </div>
                     {% endif %}
                     <input type="submit" class="btn btn-primary btn-lg" value="Iniciar sesión" />
                 </div>
             </div>
+        </form>
     </div>
 </div>
 </div>

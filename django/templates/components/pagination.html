@@ -1,0 +1,23 @@
+<div class="d-inline-block">
+    <div class="input-group">
+        {% if page_obj.has_previous %}
+        <a class="input-group-text" title="Primera página" href="?page=1">
+            <i class="fas fa-angle-double-left" aria-hidden="true"></i>
+        </a>
+        <a class="input-group-text" title="Página anterior" href="?page={{ page_obj.previous_page_number }}">
+            <i class="fas fa-angle-left" aria-hidden="true"></i>
+        </a>
+        {% endif %}
+
+        <span class="input-group-text">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+        <a class="input-group-text" title="Página siguiente" href="?page={{ page_obj.next_page_number }}">
+            <i class="fas fa-angle-right" aria-hidden="true"></i>
+        </a>
+        <a class="input-group-text" title="Última página" href="?page={{ page_obj.paginator.num_pages }}">
+            <i class="fas fa-angle-double-right" aria-hidden="true"></i>
+        </a>
+        {% endif %}
+    </div>
+</div>

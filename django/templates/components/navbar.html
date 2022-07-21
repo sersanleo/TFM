@@ -11,20 +11,24 @@
         <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
             <ul class="navbar-nav gap-lg-2 me-auto">
                 <li class="nav-item">
-                    <a class="nav-link{% if url_name|startswith:'home' %} active{% endif %}" href="#">
+                    <a class="nav-link{% if url_name|startswith:'index' %} active{% endif %}" href="{% url 'index' %}">
                         <i class="fas fa-fw fa-home"></i> Inicio
                     </a>
                 </li>
+                {% if user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link{% if url_name|startswith:'home' %} active{% endif %}" href="#">
+                    <a class="nav-link{% if 'pet' in request.resolver_match.app_names %} active{% endif %}"
+                        href="{% url 'pet:' %}">
                         <i class="fas fa-fw fa-paw"></i> Mascotas
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link{% if url_name|startswith:'home' %} active{% endif %}" href="#">
+                    <a class="nav-link{% if 'appointment' in request.resolver_match.app_names %} active{% endif %}"
+                        href="{% url 'appointment:' %}">
                         <i class="fas fa-fw fa-calendar-day"></i> Citas
                     </a>
                 </li>
+                {% endif %}
             </ul>
 
             <ul class="navbar-nav gap-lg-2 mb-2 mb-lg-0">
@@ -33,16 +37,12 @@
                     <div class="dropdown">
                         <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
-                            Mi cuenta
+                            {{ user }}
                         </button>
                         <div class="dropdown-menu text-center">
-                            <a class="dropdown-item d-flex gap-1 align-items-center" href="/admin">
-                                <i class="fas fa-fw fa-cog" aria-hidden="true"></i><span
-                                    class="flex-grow-1">Administrar</span>
-                            </a>
-                            <hr class="dropdown-divider" role="separator">
-                            <a class="dropdown-item text-danger d-flex gap-1 align-items-center"
-                                href="{% url 'logout' %}"><i class="fas fa-fw fa-sign-out-alt" aria-hidden="true">
+                            <a href="{% url 'logout' %}"
+                                class="dropdown-item text-danger d-flex gap-1 align-items-center">
+                                <i class="fas fa-fw fa-sign-out-alt" aria-hidden="true">
                                 </i><span class="flex-grow-1">Cerrar sesión</span>
                             </a>
                         </div>

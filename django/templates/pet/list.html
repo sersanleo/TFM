@@ -1,0 +1,81 @@
+{% extends 'components/layout.html' %}
+
+{% block content %}
+<div class="row g-3 justify-content-center align-items-center">
+    {% if user.is_staff %}
+    <div class="col-12 d-flex gap-2">
+        <a class="btn btn-primary" href="{% url 'pet:create' %}">
+            Crear mascota
+        </a>
+    </div>
+    {% endif %}
+    <div class="col-12">
+        <div class="card table-responsive shadow">
+            <table class="m-0 table table-striped table-borderless table-hover">
+                <thead>
+                    <tr>
+                        {% if user.is_staff %}
+                        <th></th>
+                        {% endif %}
+                        <th>Dueño</th>
+                        <th>Nombre</th>
+                        <th class="text-center">Estado</th>
+                        <th>Raza</th>
+                        <th class="text-center">Sexo</th>
+                        <th>Fecha de nacimiento</th>
+                    </tr>
+                </thead>
+                <tbody class=" align-middle text-nowrap">
+                    {% for pet in page_obj %}
+                    <tr>
+                        {% if user.is_staff %}
+                        <td class="shrink">
+                            <div class="d-flex gap-3">
+                                <a href="{% url 'pet:edit' pet.pk %}" class="p-0 btn btn-link">
+                                    <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                                </a>
+                                <form action="{% url 'pet:delete' %}" metdod="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="pet" value="{{ pet.pk }}" />
+                                    <button type="submit" class="p-0 btn btn-link">
+                                        <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                        {% endif %}
+                        <td>{{ pet.owner }}</td>
+                        <td>{{ pet.name }}</td>
+                        <td class="text-center">
+                            {% if pet.deceased %}
+                            <i class="fas fa-skull text-danger"></i>
+                            {% else %}
+                            <i class="fas fa-smile text-success"></i>
+                            {% endif %}
+                        </td>
+                        <td>{{ pet.race|default_if_none:'' }}</td>
+                        <td class="text-center">
+                            {% if pet.sex == 'F' %}
+                            <i class="fas fa-venus" title="{{ pet.sex }}"></i>
+                            {% elif pet.sex == 'M' %}
+                            <i class="fas fa-mars" title="{{ pet.sex }}"></i>
+                            {% endif %}
+                        </td>
+                        <td>{{ pet.birthday|default_if_none:'' }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="100" class="text-muted text-center fst-italic">
+                            No hay ninguna mascota registrada.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-12 text-center">
+        {% include "components/pagination.html" %}
+    </div>
+</div>
+{% endblock %}

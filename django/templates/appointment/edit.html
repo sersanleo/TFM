@@ -1,0 +1,82 @@
+{% extends 'components/layout.html' %}
+
+{% block content %}
+<div class="row g-3 justify-content-center align-items-center">
+    <div class="col-12 col-md-8 col-xl-6">
+        <div class="card table-responsive shadow">
+            <div class="card-body">
+                <form class="row g-3" method="post">
+                    {% csrf_token %}
+                    {% with field=form.pet %}
+                    {% if field %}
+                    <div class="col-12">
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
+                        </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% with field=form.vet %}
+                    {% if field %}
+                    <div class="col-12">
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
+                        </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% with field=form.date %}
+                    {% if field %}
+                    <div class="col-12">
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
+                        </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+
+                    {% with field=form.annotations %}
+                    {% if field %}
+                    <div class="col-12">
+                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                            {{ field }}
+                            {{ field.label_tag }}
+                        </div>
+                        {% if field.errors %}
+                        <div class="invalid-feedback">
+                            {{ field.errors }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+
+                    <div class="col-12 d-grid">
+                        <input type="submit" class="btn btn-primary btn-lg" value="Guardar cambios" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

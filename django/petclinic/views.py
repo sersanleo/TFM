@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.template.defaulttags import register
+from pets.models import Pet
 
 from .forms import *
 
@@ -13,6 +14,10 @@ def startswith(text, starts):
 
 
 def index(request):
+    pet = Pet.objects.get(pk=5)
+    for i in range(29):
+        pet.pk = None
+        pet.save()
     return render(request, 'index.html')
 
 
@@ -27,17 +32,12 @@ def login_view(request):
     return render(request, 'login.html')
 
 
-def logout_view(request):
-    logout(request)
-    return redirect('index')
-
-
 def register(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST, label_suffix='')
+        form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('login')
     else:
-        form = RegisterForm(label_suffix='')
+        form = RegisterForm()
     return render(request, 'register.html', {'form': form})

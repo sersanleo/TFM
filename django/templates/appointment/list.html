@@ -1,0 +1,61 @@
+{% extends 'components/layout.html' %}
+
+{% block content %}
+<div class="row g-3 justify-content-center align-items-center">
+    <div class="col-12 d-flex gap-2">
+        <a class="btn btn-primary" href="{% url 'appointment:create' %}">
+            Pedir cita
+        </a>
+    </div>
+    <div class="col-12">
+        <div class="card table-responsive shadow">
+            <table class="m-0 table table-striped table-borderless table-hover">
+                <thead>
+                    <tr>
+                        {% if user.is_staff %}
+                        <th></th>
+                        {% endif %}
+                        <th>Mascota</th>
+                        <th>Veterinario</th>
+                        <th>Fecha y hora</th>
+                    </tr>
+                </thead>
+                <tbody class=" align-middle text-nowrap">
+                    {% for appointment in page_obj %}
+                    <tr>
+                        {% if user.is_staff %}
+                        <td class="shrink">
+                            <div class="d-flex gap-3">
+                                <a href="{% url 'appointment:edit' appointment.pk %}" class="p-0 btn btn-link">
+                                    <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                                </a>
+                                <form action="{% url 'appointment:delete' %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="appointment" value="{{ appointment.pk }}" />
+                                    <button type="submit" class="p-0 btn btn-link">
+                                        <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                        {% endif %}
+                        <td>{{ appointment.pet }}</td>
+                        <td>{{ appointment.vet }}</td>
+                        <td>{{ appointment.date }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="100" class="text-muted text-center fst-italic">
+                            No hay ninguna cita registrada.
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-12 text-center">
+        {% include "components/pagination.html" %}
+    </div>
+</div>
+{% endblock %}
