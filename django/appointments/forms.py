@@ -30,6 +30,13 @@ class AppointmentForm(ModelForm):
             field.widget.attrs.update(
                 {'class': class_name, 'placeholder': field.label})
 
+    def clean_date(self):
+        data = self.cleaned_data['date']
+        if data.weekday() > 4:
+            raise ValidationError(
+                'Los fines de semana no se pueden reservar citas.')
+        return data
+
     def is_valid(self):
         result = super().is_valid()
         for x in (self.fields if '__all__' in self.errors else self.errors):

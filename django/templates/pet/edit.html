@@ -121,6 +121,14 @@
                     {% endif %}
                     {% endwith %}
 
+                    {% if form.non_field_errors %}
+                    <div class="col-12">
+                        <div class="invalid-feedback d-block m-0">
+                            {{ form.non_field_errors }}
+                        </div>
+                    </div>
+                    {% endif %}
+
                     <div class="col-12 d-grid">
                         <input type="submit" class="btn btn-primary btn-lg" value="Guardar cambios" />
                     </div>
