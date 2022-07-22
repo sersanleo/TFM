@@ -9,12 +9,12 @@
                 <div class="d-flex flex-column gap-3">
                     <div class="col-12">
                         {% with field=form.username %}
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% elif field.help_text %}
@@ -26,12 +26,12 @@
                     </div>
                     <div class="col-12">
                         {% with field=form.password %}
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% elif field.help_text %}

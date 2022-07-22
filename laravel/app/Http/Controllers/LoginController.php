@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 class LoginController extends Controller
 {
-    public function __invoke()
+    public function get()
+    {
+        return view('login');
+    }
+
+    public function post(Request $request)
     {
         return view('login');
     }

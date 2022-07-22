@@ -10,12 +10,12 @@
                     {% with field=form.owner %}
                     {% if field %}
                     <div class="col-12">
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% endif %}
@@ -26,12 +26,12 @@
                     {% with field=form.name %}
                     {% if field %}
                     <div class="col-12">
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% endif %}
@@ -42,12 +42,12 @@
                     {% with field=form.race %}
                     {% if field %}
                     <div class="col-12">
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% endif %}
@@ -58,12 +58,12 @@
                     {% with field=form.sex %}
                     {% if field %}
                     <div class="col-12">
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% endif %}
@@ -74,12 +74,12 @@
                     {% with field=form.birthday %}
                     {% if field %}
                     <div class="col-12">
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% endif %}
@@ -90,12 +90,12 @@
                     {% with field=form.annotations %}
                     {% if field %}
                     <div class="col-12">
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% endif %}
@@ -106,14 +106,14 @@
                     {% with field=form.deceased %}
                     {% if field %}
                     <div class="col-12">
-                        <div class="form-check form-switch{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-check form-switch">
                             {{ field }}
                             <label class="form-check-label" for="{{ field.auto_id }}">
                                 {{ field.label }}
                             </label>
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% endif %}

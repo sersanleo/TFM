@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 from datetime import date
 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
@@ -44,6 +45,10 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):  # get_user_model()
     username = None
     email = EmailField('Correo electrónico', unique=True)
+    first_name = CharField(
+        _('first name'), max_length=150, blank=False, null=False)
+    last_name = CharField(
+        _('last name'), max_length=150, blank=False, null=False)
     address = CharField('Dirección', max_length=300, null=False)
     birthday = DateField('Cumpleaños', null=False,
                          validators=(MaxValueValidator(date.today),))

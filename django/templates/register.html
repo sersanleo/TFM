@@ -9,12 +9,12 @@
                 <div class="row g-3">
                     <div class="col-12">
                         {% with field=form.email %}
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% elif field.help_text %}
@@ -26,12 +26,12 @@
                     </div>
                     <div class="col-12">
                         {% with field=form.password1 %}
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% elif field.help_text %}
@@ -43,12 +43,12 @@
                     </div>
                     <div class="col-12">
                         {% with field=form.password2 %}
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% elif field.help_text %}
@@ -60,12 +60,12 @@
                     </div>
                     <div class="col-12 col-sm-5">
                         {% with field=form.first_name %}
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% elif field.help_text %}
@@ -77,12 +77,12 @@
                     </div>
                     <div class="col-12 col-sm-7">
                         {% with field=form.last_name %}
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% elif field.help_text %}
@@ -94,12 +94,12 @@
                     </div>
                     <div class="col-12">
                         {% with field=form.address %}
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% elif field.help_text %}
@@ -111,12 +111,12 @@
                     </div>
                     <div class="col-12">
                         {% with field=form.birthday %}
-                        <div class="form-floating{% if field.errors %} is-invalid{% endif %}">
+                        <div class="form-floating">
                             {{ field }}
                             {{ field.label_tag }}
                         </div>
                         {% if field.errors %}
-                        <div class="invalid-feedback">
+                        <div class="invalid-feedback d-block">
                             {{ field.errors }}
                         </div>
                         {% elif field.help_text %}
