@@ -31,7 +31,8 @@ def edit(request, pk=None):
 @staff_member_required
 def delete(request):
     if request.method == 'POST':
-        Pet.objects.filter(pk=request.POST['pet']).delete()
+        Pet.objects.visible_by(request.user).filter(
+            pk=request.POST['pet']).delete()
     return redirect('pet:')
 
 

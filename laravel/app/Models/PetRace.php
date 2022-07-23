@@ -15,4 +15,9 @@ class PetRace extends Model
     {
         return $this->belongsTo(PetSpecies::class);
     }
+
+    public function __toString()
+    {
+        return $this->race ? $this->species->name . ' (' . $this->race . ')' : $this->race;
+    }
 }

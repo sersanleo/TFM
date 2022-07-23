@@ -30,7 +30,7 @@ return new class extends Migration
             $table->longText('annotations')->nullable();
             $table->date('birthday')->nullable();
             $table->string('name', 30);
-            $table->enum('', ['male', 'female']);
+            $table->enum('sex', ['male', 'female'])->nullable();
             $table->unsignedBigInteger('race_id');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
