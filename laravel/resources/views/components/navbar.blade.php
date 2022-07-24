@@ -10,21 +10,23 @@
         <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
             <ul class="navbar-nav gap-lg-2 me-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link{{ request()->routeIs('home') ? ' active' : '' }}" href="{{ route('home') }}">
                         <i class="fas fa-fw fa-home"></i> Inicio
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link{{ request()->routeIs('pet.*') ? ' active' : '' }}"
-                        href="{{ route('pet.list') }}">
-                        <i class="fas fa-fw fa-paw"></i> Mascotas
-                    </a>
-                </li>
-                <li class="nav-item{{ request()->routeIs('appointment.*') ? ' active' : '' }}">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-fw fa-calendar-day"></i> Citas
-                    </a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link{{ request()->routeIs('pet.*') ? ' active' : '' }}"
+                            href="{{ route('pet.list') }}">
+                            <i class="fas fa-fw fa-paw"></i> Mascotas
+                        </a>
+                    </li>
+                    <li class="nav-item{{ request()->routeIs('appointment.*') ? ' active' : '' }}">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-fw fa-calendar-day"></i> Citas
+                        </a>
+                    </li>
+                @endauth
             </ul>
 
             <ul class="navbar-nav gap-lg-2 mb-2 mb-lg-0">

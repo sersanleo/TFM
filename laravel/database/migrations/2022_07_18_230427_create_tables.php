@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 20)->unique();
         });
-        Schema::create('pet_race', function (Blueprint $table) {
+        Schema::create('pet_races', function (Blueprint $table) {
             $table->id();
             $table->string('race', 30)->nullable();
             $table->unsignedBigInteger('species_id');
@@ -25,20 +25,21 @@ return new class extends Migration
             $table->foreign('species_id')->references('id')->on('pet_species');
             $table->unique(['race', 'species_id']);
         });
-        Schema::create('pet', function (Blueprint $table) {
+        Schema::create('pets', function (Blueprint $table) {
             $table->id();
             $table->longText('annotations')->nullable();
             $table->date('birthday')->nullable();
             $table->string('name', 30);
             $table->enum('sex', ['male', 'female'])->nullable();
-            $table->unsignedBigInteger('race_id');
-            $table->unsignedBigInteger('user_id');
+            $table->boolean('deceased');
+            $table->unsignedBigInteger('race_id')->nullable();
+            $table->unsignedBigInteger('owner_id');
             $table->timestamps();
 
-            $table->foreign('race_id')->references('id')->on('pet_race');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('race_id')->references('id')->on('pet_races');
+            $table->foreign('owner_id')->references('id')->on('users');
         });
-        Schema::create('appointment', function (Blueprint $table) {
+        Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date');
             $table->longText('annotations')->nullable();
@@ -46,8 +47,9 @@ return new class extends Migration
             $table->unsignedBigInteger('vet_id');
             $table->timestamps();
 
-            $table->foreign('pet_id')->references('id')->on('pet');
+            $table->foreign('pet_id')->references('id')->on('pets');
             $table->foreign('vet_id')->references('id')->on('users');
+            $table->unique(['date', 'vet_id']);
         });
     }
 
@@ -58,9 +60,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointment');
-        Schema::dropIfExists('pet');
-        Schema::dropIfExists('pet_race');
+        Schema::dropIfExists('appointments');
+        Schema::dropIfExists('pets');
+        Schema::dropIfExists('pet_races');
         Schema::dropIfExists('pet_species');
     }
 };

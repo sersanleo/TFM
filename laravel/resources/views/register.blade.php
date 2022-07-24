@@ -48,12 +48,13 @@
                         </div>
                         <div class="col-12 col-sm-5">
                             <div class="form-floating">
-                                <input id="name" name="name" type="text"
-                                    class="form-control @error('name') is-invalid @enderror"
-                                    value="{{ old('name') }}"autocomplete="given-name" placeholder="Nombre" required />
-                                <label for="name">Nombre</label>
+                                <input id="first_name" name="first_name" type="text"
+                                    class="form-control @error('first_name') is-invalid @enderror"
+                                    value="{{ old('first_name') }}"autocomplete="given-name" placeholder="Nombre"
+                                    required />
+                                <label for="first_name">Nombre</label>
                             </div>
-                            @error('name')
+                            @error('first_name')
                                 <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>
@@ -61,12 +62,12 @@
                         </div>
                         <div class="col-12 col-sm-7">
                             <div class="form-floating">
-                                <input id="surname" name="surname" type="text"
-                                    class="form-control @error('surname') is-invalid @enderror"value="{{ old('surname') }}"
+                                <input id="last_name" name="last_name" type="text"
+                                    class="form-control @error('last_name') is-invalid @enderror"value="{{ old('last_name') }}"
                                     autocomplete="family-name" placeholder="Apellidos" required />
-                                <label for="surname">Apellidos</label>
+                                <label for="last_name">Apellidos</label>
                             </div>
-                            @error('surname')
+                            @error('last_name')
                                 <div class="invalid-feedback d-block">
                                     {{ $message }}
                                 </div>

@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\RegisterController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,19 +17,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('', function () {
+    return view('index');
+})->name('home');
 
-Route::controller(LoginController::class)->group(function () {
-    Route::get('login', 'get')->name('login');
-    Route::post('login', 'post');
+Route::middleware('guest')->group(function () {
+    Route::controller(LoginController::class)->group(function () {
+        Route::get('login', 'get')->name('login');
+        Route::post('login', 'post');
+    });
+    Route::controller(RegisterController::class)->group(function () {
+        Route::get('register', 'get')->name('register');
+        Route::post('register', 'post');
+    });
 });
-Route::controller(RegisterController::class)->group(function () {
-    Route::get('register', 'get')->name('register');
-    Route::post('register', 'post');
-});
-Route::controller(PetController::class)->prefix('pet')->name('pet.')->group(function () {
-    Route::get('', 'list')->name('list');
-    Route::get('create', 'create_get')->name('create');
-    Route::post('create', 'create_post');
-    // Route::get('delete', 'delete')->name('delete');
-    // Route::get('frgr', 'edit')->name('edit');
+
+Route::middleware('auth')->group(function () {
+    Route::get('logout', function () {
+        Auth::logout();
+        return redirect('/');
+    })->name('logout');
+
+    Route::controller(PetController::class)->prefix('pet')->name('pet.')->group(function () {
+        Route::get('', 'list')->name('list');
+        Route::get('create', 'create_get')->name('create');
+        Route::post('create', 'create_post');
+        // Route::get('delete', 'delete')->name('delete');
+        // Route::get('frgr', 'edit')->name('edit');
+    });
 });

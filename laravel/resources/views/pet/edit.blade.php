@@ -9,6 +9,36 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <div class="form-floating">
+                                <select class="form-select" id="owner" required>
+                                    <option selected>---------</option>
+                                    @foreach ($users as $user)
+                                        {{ $user }}
+                                        <option value="{{ $user->id }}">{{ $user }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="owner">Dueño</label>
+                            </div>
+                            @error('owner')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input id="name" name="name" type="text"
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    value="{{ old('name') }}"autocomplete="given-name" placeholder="Nombre" required />
+                                <label for="name">Nombre</label>
+                            </div>
+                            @error('name')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
                                 <select class="form-select" id="race" required>
                                     <option selected>---------</option>
                                     @foreach ($races as $race)
@@ -36,6 +66,7 @@
                                     {{ $message }}
                                 </div>
                             @enderror
+                            SEXO
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
@@ -50,6 +81,34 @@
                                     {{ $message }}
                                 </div>
                             @enderror
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input id="name" name="name" type="text"
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    value="{{ old('name') }}"autocomplete="given-name" placeholder="Nombre" required />
+                                <label for="name">Nombre</label>
+                            </div>
+                            @error('name')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            ANNOTATIONS
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input id="name" name="name" type="text"
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    value="{{ old('name') }}"autocomplete="given-name" placeholder="Nombre" required />
+                                <label for="name">Nombre</label>
+                            </div>
+                            @error('name')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                            DECEASED
                         </div>
                         <div class="col-12 d-grid">
                             <input type="submit" class="btn btn-primary btn-lg" value="Guardar cambios" />

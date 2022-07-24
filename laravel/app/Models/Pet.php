@@ -15,7 +15,6 @@ class Pet extends Model
 {
     use HasFactory;
 
-    protected $table = 'pet';
     protected $casts = [
         'birthday' => 'date:Y-m-d',
         //'sex' => Sexes::class,

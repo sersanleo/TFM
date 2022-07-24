@@ -9,8 +9,6 @@ class PetRace extends Model
 {
     use HasFactory;
 
-    protected $table = 'pet_race';
-
     public function species()
     {
         return $this->belongsTo(PetSpecies::class);
