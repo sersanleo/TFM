@@ -19,7 +19,7 @@ return new class extends Migration
         });
         Schema::create('pet_races', function (Blueprint $table) {
             $table->id();
-            $table->string('race', 30)->nullable();
+            $table->string('race', 30);
             $table->unsignedBigInteger('species_id');
 
             $table->foreign('species_id')->references('id')->on('pet_species');
@@ -30,8 +30,8 @@ return new class extends Migration
             $table->longText('annotations')->nullable();
             $table->date('birthday')->nullable();
             $table->string('name', 30);
-            $table->enum('sex', ['male', 'female'])->nullable();
-            $table->boolean('deceased');
+            $table->enum('sex', ['M', 'F'])->nullable();
+            $table->boolean('deceased')->default(false);
             $table->unsignedBigInteger('race_id')->nullable();
             $table->unsignedBigInteger('owner_id');
             $table->timestamps();

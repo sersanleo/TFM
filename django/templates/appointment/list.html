@@ -12,9 +12,7 @@
             <table class="m-0 table table-striped table-borderless table-hover">
                 <thead>
                     <tr>
-                        {% if user.is_staff %}
                         <th></th>
-                        {% endif %}
                         <th>Mascota</th>
                         <th>Veterinario</th>
                         <th>Fecha y hora</th>
@@ -23,7 +21,6 @@
                 <tbody class=" align-middle text-nowrap">
                     {% for appointment in page_obj %}
                     <tr>
-                        {% if user.is_staff %}
                         <td class="shrink">
                             <div class="d-flex gap-3">
                                 <a href="{% url 'appointment:edit' appointment.pk %}" class="p-0 btn btn-link">
@@ -38,7 +35,6 @@
                                 </form>
                             </div>
                         </td>
-                        {% endif %}
                         <td>{{ appointment.pet }}</td>
                         <td>{{ appointment.vet }}</td>
                         <td>{{ appointment.date }}</td>

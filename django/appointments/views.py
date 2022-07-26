@@ -1,4 +1,3 @@
-from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import Http404
@@ -7,6 +6,7 @@ from django.shortcuts import redirect, render
 from .forms import *
 
 
+@login_required
 def edit(request, pk=None):
     if pk:
         appointment = Appointment.objects.visible_by(
@@ -29,9 +29,11 @@ def edit(request, pk=None):
     return render(request, 'appointment/edit.html', {'form': form})
 
 
+@login_required
 def delete(request):
     if request.method == 'POST':
-        Appointment.objects.filter(pk=request.POST['appointment']).delete()
+        Appointment.objects.visible_by(request.user).filter(
+            pk=request.POST['appointment']).delete()
     return redirect('appointment:')
 
 

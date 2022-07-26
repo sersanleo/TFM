@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\RegisterController;
@@ -40,9 +41,23 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(PetController::class)->prefix('pet')->name('pet.')->group(function () {
         Route::get('', 'list')->name('list');
-        Route::get('create', 'create_get')->name('create');
-        Route::post('create', 'create_post');
-        // Route::get('delete', 'delete')->name('delete');
-        // Route::get('frgr', 'edit')->name('edit');
+        Route::middleware('staff')->group(function () {
+            Route::get('create', 'create_get')->name('create');
+            Route::post('create', 'create_post');
+            Route::post('delete', 'delete')->name('delete');
+            Route::get('{pet}', 'edit_get')->name('edit');
+            Route::post('{pet}', 'edit_post');
+        });
+    });
+
+    Route::controller(AppointmentController::class)->prefix('appointment')->name('appointment.')->group(function () {
+        Route::get('', 'list')->name('list');
+        Route::middleware('staff')->group(function () {
+            Route::get('create', 'create_get')->name('create');
+            Route::post('create', 'create_post');
+            Route::post('delete', 'delete')->name('delete');
+            Route::get('{appointment}', 'edit_get')->name('edit');
+            Route::post('{appointment}', 'edit_post');
+        });
     });
 });

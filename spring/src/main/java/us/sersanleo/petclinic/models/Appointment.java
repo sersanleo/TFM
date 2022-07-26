@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
+import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -19,13 +21,18 @@ public class Appointment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
+    @Valid
     @ManyToOne(optional = false)
     private Pet pet;
 
+    @NotNull
+    @Valid
     @ManyToOne(optional = false)
     private User vet;
 
     @NotNull
+    @Future
     private Timestamp date;
 
     @Lob
@@ -33,9 +40,9 @@ public class Appointment {
 
     @NotNull
     @CreatedDate
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     @NotNull
     @LastModifiedDate
-    private Timestamp updated_at;
+    private Timestamp updatedAt;
 }

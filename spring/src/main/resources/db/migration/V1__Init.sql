@@ -3,7 +3,7 @@ create table appointment (id bigint not null, annotations longtext, created_at d
 create table pet (id bigint not null, annotations longtext, birthday date, created_at datetime(6) not null, name varchar(30) not null, sex integer, updated_at datetime(6) not null, race_id bigint not null, user_id bigint not null, primary key (id)) engine=InnoDB;
 create table pet_race (id bigint not null, race varchar(30), species_id bigint not null, primary key (id)) engine=InnoDB;
 create table pet_species (id bigint not null, name varchar(20) not null, primary key (id)) engine=InnoDB;
-create table user (id bigint not null, address varchar(300) not null, birthday date not null, email varchar(254) not null, primary key (id)) engine=InnoDB;
+create table user (id bigint not null, address varchar(300) not null, birthday date not null, email varchar(254) not null, first_name varchar(150) not null, is_staff boolean default false not null, last_name varchar(150) not null, password varchar(255) not null, primary key (id)) engine=InnoDB;
 alter table pet_race add constraint UKgcne1pllj523oyn8nifjn8hc2 unique (species_id, race);
 alter table pet_species add constraint UK_513lv2t141tl0pieqov4vxlgf unique (name);
 alter table user add constraint UK_ob8kqyqqgmefl0aco34akdtpe unique (email);

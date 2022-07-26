@@ -7,28 +7,32 @@
                 @csrf
                 <div class="card-body text-center">
                     <div class="d-flex flex-column gap-3">
-                        <div class="form-floating">
-                            <input id="email" name="email" type="email"
-                                class="form-control @error('email') is-invalid @enderror" autocomplete="email"
-                                placeholder="Correo electrónico" value="{{ old('email') }}" required />
-                            <label for="email">Correo electrónico</label>
-                        </div>
-                        @error('email')
-                            <div class="invalid-feedback d-block">
-                                {{ $message }}
+                        <div>
+                            <div class="form-floating">
+                                <input id="email" name="email" type="email"
+                                    class="form-control @error('email') is-invalid @enderror" autocomplete="email"
+                                    placeholder="Correo electrónico" value="{{ old('email') }}" required />
+                                <label for="email">Correo electrónico</label>
                             </div>
-                        @enderror
-                        <div class="form-floating">
-                            <input id="password" name="password" type="password"
-                                class="form-control @error('password') is-invalid @enderror" autocomplete="current-password"
-                                placeholder="Contraseña" required />
-                            <label for="password">Contraseña</label>
+                            @error('email')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
-                        @error('password')
-                            <div class="invalid-feedback d-block">
-                                {{ $message }}
+                        <div>
+                            <div class="form-floating">
+                                <input id="password" name="password" type="password"
+                                    class="form-control @error('password') is-invalid @enderror"
+                                    autocomplete="current-password" placeholder="Contraseña" required />
+                                <label for="password">Contraseña</label>
                             </div>
-                        @enderror
+                            @error('password')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
                         <input type="submit" class="btn btn-primary btn-lg" value="Iniciar sesión" />
                     </div>
                 </div>

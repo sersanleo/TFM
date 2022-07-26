@@ -9,6 +9,13 @@ class Appointment extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'pet_id',
+        'vet_id',
+        'date',
+        'annotations'
+    ];
+
     protected $casts = [
         'date' => 'datetime:Y-m-d',
     ];
@@ -21,5 +28,12 @@ class Appointment extends Model
     public function pet()
     {
         return $this->belongsTo(Pet::class);
+    }
+
+    public function scopeVisibleBy($query, User $user)
+    {
+        if ($user->is_staff)
+            return $query;
+        return $query->whereRelation('pet', 'owner_id', $user->id);
     }
 }

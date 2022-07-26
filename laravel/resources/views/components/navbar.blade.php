@@ -21,8 +21,9 @@
                             <i class="fas fa-fw fa-paw"></i> Mascotas
                         </a>
                     </li>
-                    <li class="nav-item{{ request()->routeIs('appointment.*') ? ' active' : '' }}">
-                        <a class="nav-link" href="#">
+                    <li class="nav-item">
+                        <a class="nav-link{{ request()->routeIs('appointment.*') ? ' active' : '' }}"
+                            href="{{ route('appointment.list') }}">
                             <i class="fas fa-fw fa-calendar-day"></i> Citas
                         </a>
                     </li>
@@ -35,7 +36,7 @@
                         <div class="dropdown">
                             <button class="btn btn-outline-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                Mi cuenta
+                                {{ Auth::user() }}
                             </button>
                             <div class="dropdown-menu text-center">
                                 <a class="dropdown-item text-danger d-flex gap-1 align-items-center"

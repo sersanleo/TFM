@@ -11,9 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -25,9 +27,13 @@ public class Pet {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
+    @Valid
     @ManyToOne(optional = false)
     private User user;
 
+    @NotNull
+    @Valid
     @ManyToOne(optional = false)
     private PetRace race;
 
@@ -40,6 +46,7 @@ public class Pet {
     @Enumerated(EnumType.ORDINAL)
     private Sex sex;
 
+    @Past
     private Date birthday;
 
     @Lob
@@ -47,11 +54,11 @@ public class Pet {
 
     @NotNull
     @CreatedDate
-    private Timestamp created_at;
+    private Timestamp createdAt;
 
     @NotNull
     @LastModifiedDate
-    private Timestamp updated_at;
+    private Timestamp updatedAt;
 
     public static enum Sex {
         OPEN, REVIEW, APPROVED, REJECTED;

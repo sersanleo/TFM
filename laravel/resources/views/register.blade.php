@@ -5,7 +5,7 @@
         <div class="col-12 col-lg-7">
             <form class="card shadow" method="post">
                 @csrf
-                <div class="card-body text-center">
+                <div class="card-body">
                     <div class="row g-3">
                         <div class="col-12">
                             <div class="form-floating">
@@ -37,7 +37,7 @@
                             <div class="form-floating">
                                 <input id="password_confirmation" name="password_confirmation" type="password"
                                     class="form-control @error('password_confirmation') is-invalid @enderror"
-                                    autocomplete="new-password" placeholder="Repita la contraseña" required />
+                                    placeholder="Repita la contraseña" required />
                                 <label for="password_confirmation">Repita la contraseña</label>
                             </div>
                             @error('password_confirmation')
@@ -76,9 +76,9 @@
                         <div class="col-12">
                             <div class="form-floating">
                                 <input id="address" name="address" type="text"
-                                    class="form-control @error('address') is-invalid @enderror"
-                                    placeholder="Dirección"value="{{ old('address') }}" required />
-                                <label for="birthday">Dirección</label>
+                                    class="form-control @error('address') is-invalid @enderror" placeholder="Dirección"
+                                    value="{{ old('address') }}" required />
+                                <label for="address">Dirección</label>
                             </div>
                             @error('address')
                                 <div class="invalid-feedback d-block">

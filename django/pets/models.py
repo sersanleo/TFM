@@ -20,7 +20,7 @@ class PetSpecies(Model):
 class PetRace(Model):
     species = ForeignKey(PetSpecies, PROTECT,
                          verbose_name='Especie', null=False,  blank=False)
-    race = CharField('Raza', max_length=30, blank=True, null=True)
+    race = CharField('Raza', max_length=30, blank=True, null=False)
 
     class Meta:
         verbose_name = 'Raza'
@@ -31,7 +31,7 @@ class PetRace(Model):
 
     class Manager(Manager):
         def get_queryset(self):
-            return super().get_queryset().prefetch_related('species')
+            return super().get_queryset().select_related('species')
 
     objects = Manager()
 
@@ -52,7 +52,7 @@ class Pet(Model):
     name = CharField('Nombre', max_length=30, blank=False, null=False)
     sex = CharField('Sexo', choices=Sexes.choices,
                     max_length=1, blank=True, null=True)
-    birthday = DateField('Cumpleaños', blank=True, null=True,
+    birthday = DateField('Fecha de nacimiento', blank=True, null=True,
                          validators=(MaxValueValidator(date.today),))
     annotations = TextField('Anotaciones', blank=True, null=True)
     deceased = BooleanField(
@@ -68,7 +68,7 @@ class Pet(Model):
         ordering = ('-created_at',)
 
     def __str__(self):
-        return self.name
+        return self.name + ' (' + str(self.owner) + ')'
 
     class PetQuerySet(QuerySet):
         def visible_by(self, user):

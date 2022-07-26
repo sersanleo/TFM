@@ -16,6 +16,6 @@ class PetRace extends Model
 
     public function __toString()
     {
-        return $this->race ? $this->species->name . ' (' . $this->race . ')' : $this->race;
+        return strlen($this->race) > 0  ? $this->species->name . ' (' . $this->race . ')' : $this->species->name;
     }
 }
