@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,7 +34,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         public UserDetailsImpl(User user) {
             this.user = user;
-            this.authorities = new ArrayList<GrantedAuthority>();
+            authorities = new ArrayList<GrantedAuthority>();
+            if (user.isStaff())
+                authorities.add(new SimpleGrantedAuthority("VET"));
         }
 
         @Override
@@ -72,7 +75,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         public boolean isStaff() {
-            return this.user.getIsStaff();
+            return this.user.isStaff();
         }
 
         public User getUser() {

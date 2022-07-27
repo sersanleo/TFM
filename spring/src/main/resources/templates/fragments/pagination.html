@@ -1,0 +1,26 @@
+<div class="d-inline-block">
+    <div class="input-group">
+        <div th:remove="tag" th:if="${pagination.hasPrevious()}">
+            <a class="input-group-text" title="Primera página" href="?page=0">
+                <i class="fas fa-angle-double-left" aria-hidden="true"></i>
+            </a>
+            <a class="input-group-text" title="Página anterior" th:href="|?page=${pagination.getNumber()-1}|">
+                <i class="fas fa-angle-left" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <span class="input-group-text">
+            Página <span th:text="${pagination.getTotalPages() > 0 ? pagination.getNumber()+1 : 1}" th:remove="tag" />
+            de <span th:text="${pagination.getTotalPages() > 0 ? pagination.getTotalPages() : 1}" th:remove="tag" />
+        </span>
+
+        <div th:remove="tag" th:if="${pagination.hasNext()}">
+            <a class="input-group-text" title="Página siguiente" th:href="|?page=${pagination.getNumber()+1}|">
+                <i class="fas fa-angle-right" aria-hidden="true"></i>
+            </a>
+            <a class="input-group-text" title="Última página" th:href="|?page=${pagination.getTotalPages()}|">
+                <i class="fas fa-angle-double-right" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+</div>

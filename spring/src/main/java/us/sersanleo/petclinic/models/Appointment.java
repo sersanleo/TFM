@@ -1,6 +1,7 @@
 package us.sersanleo.petclinic.models;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
@@ -18,7 +21,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Entity
 public class Appointment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -33,7 +36,8 @@ public class Appointment {
 
     @NotNull
     @Future
-    private Timestamp date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date;
 
     @Lob
     private String annotations;

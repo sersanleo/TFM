@@ -1,8 +1,9 @@
 package us.sersanleo.petclinic.models;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -24,17 +27,16 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Entity
 public class Pet {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
     @Valid
     @ManyToOne(optional = false)
-    private User user;
+    private User owner;
 
-    @NotNull
     @Valid
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     private PetRace race;
 
     @NotEmpty
@@ -47,10 +49,15 @@ public class Pet {
     private Sex sex;
 
     @Past
+    @Temporal(TemporalType.DATE)
     private Date birthday;
 
     @Lob
     private String annotations;
+
+    @NotNull
+    @Column(columnDefinition = "boolean default false")
+    private boolean deceased;
 
     @NotNull
     @CreatedDate
@@ -61,6 +68,86 @@ public class Pet {
     private Timestamp updatedAt;
 
     public static enum Sex {
-        OPEN, REVIEW, APPROVED, REJECTED;
+        MALE, FEMALE;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getOwner() {
+        return this.owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public PetRace getRace() {
+        return this.race;
+    }
+
+    public void setRace(PetRace race) {
+        this.race = race;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Sex getSex() {
+        return this.sex;
+    }
+
+    public void setSex(Sex sex) {
+        this.sex = sex;
+    }
+
+    public Date getBirthday() {
+        return this.birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getAnnotations() {
+        return this.annotations;
+    }
+
+    public void setAnnotations(String annotations) {
+        this.annotations = annotations;
+    }
+
+    public boolean isDeceased() {
+        return this.deceased;
+    }
+
+    public void setDeceased(boolean deceased) {
+        this.deceased = deceased;
+    }
+
+    public Timestamp getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

@@ -19,9 +19,9 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.headers().frameOptions().sameOrigin();
         http.authorizeRequests()
-                .antMatchers("/", "/**.css").permitAll()
+                .antMatchers("/").permitAll()
                 .antMatchers("/login", "/register").anonymous()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()// .authenticated()
                 .and().formLogin().loginPage("/login").loginProcessingUrl("/login")
                 .and().logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/");
         return http.build();
@@ -29,7 +29,6 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/images/**", "/js/**",
-                "/webjars/**");
+        return (web) -> web.ignoring().antMatchers("/**.css*");
     }
 }

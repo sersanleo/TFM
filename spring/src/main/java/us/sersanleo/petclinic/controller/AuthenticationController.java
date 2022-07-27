@@ -20,7 +20,7 @@ public class AuthenticationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/")
+    @GetMapping()
     public String index() {
         return "index";
     }
@@ -43,7 +43,9 @@ public class AuthenticationController {
 
         if (bindingResult.hasErrors())
             return "register";
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        user.setPasswordConfirmation(encodedPassword);
         userRepository.save(user);
         return "redirect:/login";
     }

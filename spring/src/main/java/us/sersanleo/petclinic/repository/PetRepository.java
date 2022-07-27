@@ -7,5 +7,4 @@ import us.sersanleo.petclinic.models.Pet;
 
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
-
 }

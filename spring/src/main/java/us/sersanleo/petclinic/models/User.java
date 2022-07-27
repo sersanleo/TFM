@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -23,7 +25,7 @@ import us.sersanleo.petclinic.models.validation.EqualFields;
 @EqualFields(baseField = "password", matchField = "passwordConfirmation", message = "la confirmación de contraseña no coincide")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotEmpty
@@ -63,6 +65,7 @@ public class User {
 
     @NotNull
     @Past
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
@@ -126,15 +129,11 @@ public class User {
         this.birthday = birthday;
     }
 
-    public boolean getIsStaff() {
-        return this.isStaff;
-    }
-
     public void setIsStaff(boolean isStaff) {
         this.isStaff = isStaff;
     }
 
-    public boolean isIsStaff() {
+    public boolean isStaff() {
         return this.isStaff;
     }
 

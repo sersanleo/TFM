@@ -9,7 +9,7 @@
                     <div class="row g-3">
                         <div class="col-12">
                             <div class="form-floating">
-                                <select name="owner_id"class="form-select @error('owner_id') is-invalid @enderror"
+                                <select name="owner_id" class="form-select @error('owner_id') is-invalid @enderror"
                                     id="owner_id" required>
                                     <option value="">---------</option>
                                     @foreach (App\Models\User::all() as $user)
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-12">
                             <div class="form-floating">
-                                <select name="race_id"class="form-select @error('race_id') is-invalid @enderror"
+                                <select name="race_id" class="form-select @error('race_id') is-invalid @enderror"
                                     id="race_id">
                                     <option value="">---------</option>
                                     @foreach (App\Models\PetRace::all() as $race)

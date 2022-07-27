@@ -1,0 +1,102 @@
+<div layout:decorate="~{fragments/layout}">
+    <div layout:fragment="content">
+        <div class="row g-3 justify-content-center align-items-center">
+            <div class="col-12 col-lg-7">
+                <form class="card shadow" method="post" th:object="${pet}">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select th:field="*{owner}" class="form-select"
+                                        th:classappend="${#fields.hasErrors('owner')} ? 'is-invalid' : ''" id="owner"
+                                        required>
+                                        <option value="">---------</option>
+                                    </select>
+                                    <label for="owner">Dueño</label>
+                                </div>
+                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('owner')}">
+                                    <li th:each="err : ${#fields.errors('owner')}" th:text="${err}" />
+                                </ul>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input id="name" type="text" class="form-control" th:field="*{name}"
+                                        th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"
+                                        placeholder="Nombre" required />
+                                    <label for="name">Nombre</label>
+                                </div>
+                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('name')}">
+                                    <li th:each="err : ${#fields.errors('name')}" th:text="${err}" />
+                                </ul>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select th:field="*{race}" class="form-select"
+                                        th:classappend="${#fields.hasErrors('race')} ? 'is-invalid' : ''" id="race">
+                                        <option value="">---------</option>
+                                    </select>
+                                    <label for="race">Raza</label>
+                                </div>
+                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('race')}">
+                                    <li th:each="err : ${#fields.errors('race')}" th:text="${err}" />
+                                </ul>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <select th:field="*{sex}" class="form-select"
+                                        th:classappend="${#fields.hasErrors('sex')} ? 'is-invalid' : ''" id="sex">
+                                        <option value="">---------</option>
+                                        <option value="">---------</option>
+                                    </select>
+                                    <label for="sex">Sexo</label>
+                                </div>
+                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('sex')}">
+                                    <li th:each="err : ${#fields.errors('sex')}" th:text="${err}" />
+                                </ul>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input id="birthday" type="date" class="form-control" th:field="*{birthday}"
+                                        th:classappend="${#fields.hasErrors('birthday')} ? 'is-invalid' : ''"
+                                        placeholder="Fecha de nacimiento" />
+                                    <label for="birthday">Fecha de nacimiento</label>
+                                </div>
+                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('birthday')}">
+                                    <li th:each="err : ${#fields.errors('birthday')}" th:text="${err}" />
+                                </ul>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <textarea class="form-control" id="annotations" th:field="*{annotations}"
+                                        th:classappend="${#fields.hasErrors('annotations')} ? 'is-invalid' : ''"
+                                        style="height:7rem"></textarea>
+                                    <label for="annotations">Anotaciones</label>
+                                </div>
+                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('annotations')}">
+                                    <li th:each="err : ${#fields.errors('annotations')}" th:text="${err}" />
+                                </ul>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-check form-switch">
+                                    <input type="checkbox" th:field="*{deceased}" class="form-check-input"
+                                        th:classappend="${#fields.hasErrors('deceased')} ? 'is-invalid' : ''"
+                                        placeholder="¿Ha fallecido?" id="deceased">
+                                    <label class="form-check-label" for="deceased">
+                                        ¿Ha fallecido?
+                                    </label>
+                                </div>
+                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('deceased')}">
+                                    <li th:each="err : ${#fields.errors('deceased')}" th:text="${err}" />
+                                </ul>
+                            </div>
+                            <div class="col-12 d-grid">
+                                <input type="submit" class="btn btn-primary btn-lg" value="Registrarme" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
