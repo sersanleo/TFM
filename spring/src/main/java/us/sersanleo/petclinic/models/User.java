@@ -19,10 +19,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import us.sersanleo.petclinic.models.validation.EqualFields;
-
 @Entity
-@EqualFields(baseField = "password", matchField = "passwordConfirmation", message = "la confirmación de contraseña no coincide")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -21,6 +21,7 @@ public class SecurityConfig {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/login", "/register").anonymous()
+                // .antMatchers("/pet/?**").hasAnyAuthority("VET")
                 .anyRequest().permitAll()// .authenticated()
                 .and().formLogin().loginPage("/login").loginProcessingUrl("/login")
                 .and().logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/");

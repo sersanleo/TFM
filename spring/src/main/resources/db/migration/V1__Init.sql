@@ -1,6 +1,6 @@
-create table appointment (id bigint not null auto_increment, annotations longtext, created_at datetime(6) not null, date datetime(6) not null, updated_at datetime(6) not null, pet_id bigint not null, vet_id bigint not null, primary key (id)) engine=InnoDB;
-create table pet (id bigint not null auto_increment, annotations longtext, birthday date, created_at datetime(6) not null, deceased boolean default false not null, name varchar(30) not null, sex integer, updated_at datetime(6) not null, owner_id bigint not null, race_id bigint, primary key (id)) engine=InnoDB;
-create table pet_race (id bigint not null auto_increment, race varchar(30), species_id bigint not null, primary key (id)) engine=InnoDB;
+create table appointment (id bigint not null auto_increment, annotations longtext, created_at datetime(6), date datetime(6) not null, updated_at datetime(6), pet_id bigint not null, vet_id bigint not null, primary key (id)) engine=InnoDB;
+create table pet (id bigint not null auto_increment, annotations longtext, birthday date, created_at datetime(6), deceased boolean default false not null, name varchar(30) not null, sex integer, updated_at datetime(6), owner_id bigint not null, race_id bigint, primary key (id)) engine=InnoDB;
+create table pet_race (id bigint not null auto_increment, race varchar(30) not null, species_id bigint not null, primary key (id)) engine=InnoDB;
 create table pet_species (id bigint not null auto_increment, name varchar(20) not null, primary key (id)) engine=InnoDB;
 create table user (id bigint not null auto_increment, address varchar(300) not null, birthday date not null, email varchar(254) not null, first_name varchar(150) not null, is_staff boolean default false not null, last_name varchar(150) not null, password varchar(255) not null, primary key (id)) engine=InnoDB;
 alter table pet_race add constraint UKgcne1pllj523oyn8nifjn8hc2 unique (species_id, race);

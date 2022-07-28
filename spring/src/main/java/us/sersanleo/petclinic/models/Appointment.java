@@ -42,11 +42,65 @@ public class Appointment {
     @Lob
     private String annotations;
 
-    @NotNull
     @CreatedDate
     private Timestamp createdAt;
 
-    @NotNull
     @LastModifiedDate
     private Timestamp updatedAt;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Pet getPet() {
+        return this.pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
+    public User getVet() {
+        return this.vet;
+    }
+
+    public void setVet(User vet) {
+        this.vet = vet;
+    }
+
+    public Date getDate() {
+        return this.date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getAnnotations() {
+        return this.annotations;
+    }
+
+    public void setAnnotations(String annotations) {
+        this.annotations = annotations;
+    }
+
+    public Timestamp getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    public void setUpdatedAt(Timestamp updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

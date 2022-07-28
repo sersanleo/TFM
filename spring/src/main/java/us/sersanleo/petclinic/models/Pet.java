@@ -23,6 +23,7 @@ import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Pet {
@@ -50,6 +51,7 @@ public class Pet {
 
     @Past
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
     @Lob
@@ -59,16 +61,20 @@ public class Pet {
     @Column(columnDefinition = "boolean default false")
     private boolean deceased;
 
-    @NotNull
     @CreatedDate
     private Timestamp createdAt;
 
-    @NotNull
     @LastModifiedDate
     private Timestamp updatedAt;
 
     public static enum Sex {
-        MALE, FEMALE;
+        MALE("Macho"), FEMALE("Hembra");
+
+        public final String label;
+
+        private Sex(String label) {
+            this.label = label;
+        }
     }
 
     public Long getId() {

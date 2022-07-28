@@ -40,6 +40,9 @@ public class AuthenticationController {
     public String postRegister(@Valid User user, BindingResult bindingResult) {
         if (userRepository.existsEmail(user.getEmail()))
             bindingResult.rejectValue("email", "email.nonUnique", "el email ya existe");
+        if (!user.getPassword().equals(user.getPasswordConfirmation()))
+            bindingResult.rejectValue("passwordConfirmation", "password.notMatching",
+                    "la confirmación de contraseña no coincide");
 
         if (bindingResult.hasErrors())
             return "register";

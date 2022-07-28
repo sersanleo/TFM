@@ -2,7 +2,7 @@
     <div layout:fragment="content">
         <div class="row g-3 justify-content-center align-items-center">
             <div class="col-12 col-lg-7">
-                <form class="card shadow" method="post" th:object="${pet}">
+                <form class="card shadow" method="post" th:object="${appointment}">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     <div class="card-body">
                         <div class="row g-3">

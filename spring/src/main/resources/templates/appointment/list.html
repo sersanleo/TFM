@@ -1,0 +1,56 @@
+<div layout:decorate="~{fragments/layout}">
+    <div layout:fragment="content">
+        <div class="row g-3 justify-content-center align-items-center">
+            <div class="col-12 d-flex gap-2">
+                <a class="btn btn-primary" th:href="@{/appointment/create}">
+                    Pedir cita
+                </a>
+            </div>
+            <div class="col-12">
+                <div class="card table-responsive shadow">
+                    <table class="m-0 table table-striped table-borderless table-hover">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Mascota</th>
+                                <th>Veterinario</th>
+                                <th>Fecha y hora</th>
+                            </tr>
+                        </thead>
+                        <tbody class=" align-middle text-nowrap">
+                            <tr th:each="appointment : ${pagination.getContent()}">
+                                <td class="shrink">
+                                    <div class="d-flex gap-3">
+                                        <a th:href="@{/appointment/{id}(id=${appointment.getId()})}"
+                                            class="p-0 btn btn-link">
+                                            <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+                                        </a>
+                                        <form th:action="@{/appointment/delete}" method="post">
+                                            <input type="hidden" th:name="${_csrf.parameterName}"
+                                                th:value="${_csrf.token}" />
+                                            <input type="hidden" name="appointment" th:value="${appointment.getId()}" />
+                                            <button type="submit" class="p-0 btn btn-link">
+                                                <i class="fas fa-trash-alt" aria-hidden="true"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td th:text="${appointment.getPet().getName()}"></td>
+                                <td th:text="${appointment.getVet()}"></td>
+                                <td th:text="${#dates.format(appointment.getDate(), 'dd/MM/yyyy HH:mm')}"></td>
+                            </tr>
+                            <tr th:if="${pagination.getTotalElements() == 0}">
+                                <td colspan="100" class="text-muted text-center fst-italic">
+                                    No hay ninguna cita registrada.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <nav th:replace="fragments/pagination.html" />
+            </div>
+        </div>
+    </div>
+</div>

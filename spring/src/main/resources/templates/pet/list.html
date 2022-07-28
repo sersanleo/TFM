@@ -7,7 +7,6 @@
                 </a>
             </div>
             <div class="col-12">
-                <span th:text="${pets}"></span>
                 <div class="card table-responsive shadow">
                     <table class="m-0 table table-striped table-borderless table-hover">
                         <thead>
@@ -25,7 +24,7 @@
                             <tr th:each="pet : ${pagination.getContent()}">
                                 <td class="shrink" sec:authorize="hasAuthority('VET')">
                                     <div class="d-flex gap-3">
-                                        <a th:href="@{/pet/create}" class="p-0 btn btn-link">
+                                        <a th:href="@{/pet/{id}(id=${pet.getId()})}" class="p-0 btn btn-link">
                                             <i class="fas fa-pencil-alt" aria-hidden="true"></i>
                                         </a>
                                         <form th:action="@{/pet/delete}" method="post">
@@ -52,6 +51,11 @@
                                         th:if="${pet.getSex() == T(us.sersanleo.petclinic.models.Pet.Sex).MALE}"></i>
                                 </td>
                                 <td th:text="${#dates.format(pet.getBirthday(), 'dd/MM/yyyy')}"></td>
+                            </tr>
+                            <tr th:if="${pagination.getTotalElements() == 0}">
+                                <td colspan="100" class="text-muted text-center fst-italic">
+                                    No hay ninguna mascota registrada.
+                                </td>
                             </tr>
                         </tbody>
                     </table>
