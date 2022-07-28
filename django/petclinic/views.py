@@ -14,10 +14,6 @@ def startswith(text, starts):
 
 
 def index(request):
-    pet = Pet.objects.get(pk=5)
-    for i in range(29):
-        pet.pk = None
-        pet.save()
     return render(request, 'index.html')
 
 

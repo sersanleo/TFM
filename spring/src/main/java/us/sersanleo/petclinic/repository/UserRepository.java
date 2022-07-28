@@ -1,10 +1,10 @@
 package us.sersanleo.petclinic.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import us.sersanleo.petclinic.models.User;
@@ -13,6 +13,9 @@ import us.sersanleo.petclinic.models.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
 
-    @Query("select case when count(c) > 0 then true else false end from User c where lower(c.email) like lower(:email)")
-    boolean existsEmail(@Param("email") String email);
+    @Query("SELECT user FROM User user WHERE user.isStaff = true")
+    List<User> findAllVets();
+
+    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM User c WHERE lower(c.email) LIKE lower(:email)")
+    boolean existsEmail(String email);
 }

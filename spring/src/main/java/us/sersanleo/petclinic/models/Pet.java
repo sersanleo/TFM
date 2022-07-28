@@ -156,4 +156,9 @@ public class Pet {
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @Override
+    public String toString() {
+        return this.name + " (" + this.owner + ")";
+    }
 }

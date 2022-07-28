@@ -8,91 +8,53 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <select th:field="*{owner}" class="form-select"
-                                        th:classappend="${#fields.hasErrors('owner')} ? 'is-invalid' : ''" id="owner"
-                                        required>
+                                    <select th:field="*{pet}" class="form-select"
+                                        th:classappend="${#fields.hasErrors('pet')} ? 'is-invalid' : ''"
+                                        placeholder="Mascota" required id="pet">
                                         <option value="">---------</option>
-                                        <option th:each="opt : ${users}" th:value="${opt.getId()}" th:text="${opt}">
+                                        <option th:each="opt : ${pets}" th:value="${opt.getId()}" th:text="${opt}">
                                     </select>
-                                    <label for="owner">Dueño</label>
+                                    <label for="pet">Mascota</label>
                                 </div>
-                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('owner')}">
-                                    <li th:each="err : ${#fields.errors('owner')}" th:text="${err}" />
+                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('pet')}">
+                                    <li th:each="err : ${#fields.errors('pet')}" th:text="${err}" />
                                 </ul>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input id="name" type="text" class="form-control" th:field="*{name}"
-                                        th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''"
-                                        placeholder="Nombre" required />
-                                    <label for="name">Nombre</label>
-                                </div>
-                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('name')}">
-                                    <li th:each="err : ${#fields.errors('name')}" th:text="${err}" />
-                                </ul>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <select th:field="*{race}" class="form-select"
-                                        th:classappend="${#fields.hasErrors('race')} ? 'is-invalid' : ''" id="race">
+                                    <select th:field="*{vet}" class="form-select"
+                                        th:classappend="${#fields.hasErrors('vet')} ? 'is-invalid' : ''"
+                                        placeholder="Veterinario" required id="vet">
                                         <option value="">---------</option>
-                                        <option th:each="opt : ${races}" th:value="${opt.getId()}" th:text="${opt}">
-                                        </option>
-                                        </option>
+                                        <option th:each="opt : ${vets}" th:value="${opt.getId()}" th:text="${opt}">
                                     </select>
-                                    <label for="race">Raza</label>
+                                    <label for="vet">Veterinario</label>
                                 </div>
-                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('race')}">
-                                    <li th:each="err : ${#fields.errors('race')}" th:text="${err}" />
+                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('vet')}">
+                                    <li th:each="err : ${#fields.errors('vet')}" th:text="${err}" />
                                 </ul>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <select th:field="*{sex}" class="form-select"
-                                        th:classappend="${#fields.hasErrors('sex')} ? 'is-invalid' : ''" id="sex">
-                                        <option value="">---------</option>
-                                        <option th:each="opt : ${T(us.sersanleo.petclinic.models.Pet.Sex).values()}"
-                                            th:value="${opt}" th:text="${opt.label}"></option>
-                                    </select>
-                                    <label for="sex">Sexo</label>
+                                    <input type="datetime-local" th:field="*{date}" class="form-control"
+                                        th:classappend="${#fields.hasErrors('date')} ? 'is-invalid' : ''"
+                                        placeholder="Fecha y hora" required id="date">
+                                    <label for="date">Fecha y hora</label>
                                 </div>
-                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('sex')}">
-                                    <li th:each="err : ${#fields.errors('sex')}" th:text="${err}" />
+                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('date')}">
+                                    <li th:each="err : ${#fields.errors('date')}" th:text="${err}" />
                                 </ul>
                             </div>
                             <div class="col-12">
                                 <div class="form-floating">
-                                    <input id="birthday" type="date" class="form-control" th:field="*{birthday}"
-                                        th:classappend="${#fields.hasErrors('birthday')} ? 'is-invalid' : ''"
-                                        placeholder="Fecha de nacimiento" />
-                                    <label for="birthday">Fecha de nacimiento</label>
-                                </div>
-                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('birthday')}">
-                                    <li th:each="err : ${#fields.errors('birthday')}" th:text="${err}" />
-                                </ul>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control" id="annotations" th:field="*{annotations}"
+                                    <textarea th:field="*{annotations}" cols="40" rows="10" style="height:7rem"
+                                        class="form-control"
                                         th:classappend="${#fields.hasErrors('annotations')} ? 'is-invalid' : ''"
-                                        style="height:7rem"></textarea>
+                                        placeholder="Anotaciones" id="annotations"></textarea>
                                     <label for="annotations">Anotaciones</label>
                                 </div>
                                 <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('annotations')}">
                                     <li th:each="err : ${#fields.errors('annotations')}" th:text="${err}" />
-                                </ul>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-check form-switch">
-                                    <input type="checkbox" th:field="*{deceased}" class="form-check-input"
-                                        th:classappend="${#fields.hasErrors('deceased')} ? 'is-invalid' : ''"
-                                        placeholder="¿Ha fallecido?" id="deceased">
-                                    <label class="form-check-label" for="deceased">
-                                        ¿Ha fallecido?
-                                    </label>
-                                </div>
-                                <ul class="invalid-feedback d-block" th:if="${#fields.hasErrors('deceased')}">
-                                    <li th:each="err : ${#fields.errors('deceased')}" th:text="${err}" />
                                 </ul>
                             </div>
                             <div class="col-12 d-grid">

@@ -46,9 +46,9 @@
                                 <td th:text="${pet.getRace()}"></td>
                                 <td class="text-center">
                                     <i class="fas fa-venus"
-                                        th:if="${pet.getSex() == T(us.sersanleo.petclinic.models.Pet.Sex).FEMALE}"></i>
+                                        th:if="${T(us.sersanleo.petclinic.models.Pet.Sex).FEMALE.equals(pet.getSex())}"></i>
                                     <i class="fas fa-mars"
-                                        th:if="${pet.getSex() == T(us.sersanleo.petclinic.models.Pet.Sex).MALE}"></i>
+                                        th:if="${T(us.sersanleo.petclinic.models.Pet.Sex).MALE.equals(pet.getSex())}"></i>
                                 </td>
                                 <td th:text="${#dates.format(pet.getBirthday(), 'dd/MM/yyyy')}"></td>
                             </tr>

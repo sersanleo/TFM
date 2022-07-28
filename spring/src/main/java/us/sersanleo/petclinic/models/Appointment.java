@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Appointment {
@@ -37,6 +38,7 @@ public class Appointment {
     @NotNull
     @Future
     @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date date;
 
     @Lob

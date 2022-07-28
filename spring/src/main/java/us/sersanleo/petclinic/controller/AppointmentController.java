@@ -1,5 +1,7 @@
 package us.sersanleo.petclinic.controller;
 
+import static us.sersanleo.petclinic.Util.getUser;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import us.sersanleo.petclinic.models.Appointment;
+import us.sersanleo.petclinic.models.User;
 import us.sersanleo.petclinic.repository.AppointmentRepository;
-import us.sersanleo.petclinic.repository.PetRepository;
+import us.sersanleo.petclinic.repository.UserRepository;
+import us.sersanleo.petclinic.service.AppointmentService;
+import us.sersanleo.petclinic.service.PetService;
 
 @Controller
 @RequestMapping(path = "/appointment")
@@ -23,55 +28,74 @@ public class AppointmentController {
     @Autowired
     private AppointmentRepository appointmentRepository;
     @Autowired
-    private PetRepository petRepository;
+    private AppointmentService appointmentService;
+    @Autowired
+    private PetService petService;
+    @Autowired
+    private UserRepository userRepository;
+
+    private void addFormOptionsToModel(User user, Model model) {
+        model.addAttribute("pets", petService.visibleBy(user));
+        model.addAttribute("vets", userRepository.findAllVets());
+    }
+
+    private void validateAppointment(Appointment appointment, BindingResult bindingResult) {
+        if (!bindingResult.hasFieldErrors("vet") && !appointment.getVet().isStaff())
+            bindingResult.rejectValue("vet", "user.notVet");
+        if (!bindingResult.hasFieldErrors("pet") && !petService.visibleBy(getUser(), appointment.getPet()))
+            bindingResult.rejectValue("pet", "pet.notOwner");
+    }
 
     @GetMapping()
     public String list(Model model, @RequestParam(required = false, defaultValue = "0") int page) {
-        model.addAttribute("pagination", appointmentRepository.findAll(PageRequest.of(page, 10)));
+        model.addAttribute("pagination", appointmentService.visibleBy(getUser(), PageRequest.of(page, 10)));
         return "appointment/list";
-    }
-
-    private void addFormOptionsToModel(Model model) {
-
     }
 
     @GetMapping("/create")
     public String getCreate(Model model) {
-        addFormOptionsToModel(model);
+        addFormOptionsToModel(getUser(), model);
         model.addAttribute("appointment", new Appointment());
         return "appointment/edit";
     }
 
     @PostMapping("/create")
     public String postCreate(@Valid Appointment appointment, BindingResult bindingResult, Model model) {
-        addFormOptionsToModel(model);
-
-        if (bindingResult.hasErrors())
+        validateAppointment(appointment, bindingResult);
+        if (bindingResult.hasErrors()) {
+            addFormOptionsToModel(getUser(), model);
             return "appointment/edit";
+        }
         appointmentRepository.save(appointment);
         return "redirect:/appointment";
     }
 
     @PostMapping("/delete")
     public String delete(@RequestParam Long appointment) {
-        appointmentRepository.deleteById(appointment);
+        if (appointmentRepository.visibleBy(appointment, getUser().getId()))
+            appointmentRepository.deleteById(appointment);
         return "redirect:/appointment";
     }
 
-    @GetMapping("/{id}")
-    public String getEdit(@PathVariable(value = "id") Long id, Model model) {
-        addFormOptionsToModel(model);
-        model.addAttribute("appointment", appointmentRepository.findById(id));
+    @GetMapping("/{appointmentId}")
+    public String getEdit(@PathVariable Long appointmentId, Model model) {
+        if (!appointmentRepository.visibleBy(appointmentId, getUser().getId()))
+            return "redirect:/appointment";
+        addFormOptionsToModel(getUser(), model);
+        model.addAttribute("appointment", appointmentRepository.findById(appointmentId));
         return "appointment/edit";
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/{appointmentId}")
     public String postEdit(@Valid Appointment appointment, BindingResult bindingResult, Model model) {
-        addFormOptionsToModel(model);
-
-        if (bindingResult.hasErrors())
-            return "appointment/edit";
-        appointmentRepository.save(appointment);
+        if (appointmentRepository.visibleBy(appointment.getId(), getUser().getId())) {
+            validateAppointment(appointment, bindingResult);
+            if (bindingResult.hasErrors()) {
+                addFormOptionsToModel(getUser(), model);
+                return "appointment/edit";
+            }
+            appointmentRepository.save(appointment);
+        }
         return "redirect:/appointment";
     }
 }
