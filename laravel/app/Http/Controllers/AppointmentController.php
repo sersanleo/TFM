@@ -27,7 +27,7 @@ class AppointmentController extends Controller
 
     public function list()
     {
-        $appointments = Appointment::visibleBy(Auth::user())->paginate(10);
+        $appointments = Appointment::visibleBy(Auth::user())->orderBy('date', 'desc')->paginate(10);
         return view('appointment.list')->with('appointments', $appointments);
     }
 

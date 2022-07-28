@@ -16,6 +16,10 @@ public class AppointmentService {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
+    public boolean visibleBy(Long id, User user) {
+        return user.isStaff() || appointmentRepository.visibleBy(id, user.getId());
+    }
+
     public Page<Appointment> visibleBy(User user, Pageable pageable) {
         if (user.isStaff())
             return appointmentRepository.findAll(pageable);

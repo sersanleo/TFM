@@ -12,7 +12,7 @@
                                 <select name="owner_id" class="form-select @error('owner_id') is-invalid @enderror"
                                     id="owner_id" required>
                                     <option value="">---------</option>
-                                    @foreach (App\Models\User::all() as $user)
+                                    @foreach (App\Models\User::orderBy('first_name')->orderBy('last_name')->get() as $user)
                                         <option value="{{ $user->id }}"
                                             {{ (isset($pet) ? $pet->owner_id : old('owner_id')) == $user->id ? 'selected' : '' }}>
                                             {{ $user }}
@@ -46,7 +46,7 @@
                                 <select name="race_id" class="form-select @error('race_id') is-invalid @enderror"
                                     id="race_id">
                                     <option value="">---------</option>
-                                    @foreach (App\Models\PetRace::all() as $race)
+                                    @foreach (App\Models\PetRace::orderBy('species_id')->orderBy('race')->get() as $race)
                                         <option value="{{ $race->id }}"
                                             {{ (isset($pet) ? $pet->race_id : old('race_id')) == $race->id ? 'selected' : '' }}>
                                             {{ $race }}</option>
@@ -86,7 +86,7 @@
                             <div class="form-floating">
                                 <input id="birthday" name="birthday" type="date"
                                     class="form-control @error('birthday') is-invalid @enderror" autocomplete="bday"
-                                    value="{{ isset($pet) ? $pet->birthday : old('birthday') }}"
+                                    value="{{ isset($pet) ? $pet->birthday->format('Y-m-d') : old('birthday') }}"
                                     placeholder="Fecha de nacimiento" />
                                 <label for="birthday">Fecha de nacimiento</label>
                             </div>

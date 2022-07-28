@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render
 from django.template.defaulttags import register
-from pets.models import Pet
+from pets.models import Pet, PetRace
 
 from .forms import *
 
@@ -14,6 +15,8 @@ def startswith(text, starts):
 
 
 def index(request):
+    print('INSERT INTO `pet_race` (`id`, `race`, `species_id`) VALUES '+', '.join(
+        ["('{0}', '{1}', '{2}')".format(i.pk, i.race, i.species.pk) for i in PetRace.objects.all()]))
     return render(request, 'index.html')
 
 

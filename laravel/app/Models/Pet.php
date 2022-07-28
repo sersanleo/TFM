@@ -23,7 +23,6 @@ class Pet extends Model
 
     protected $casts = [
         'birthday' => 'date:Y-m-d',
-        'sex' => Sexes::class,
         'deceased' => 'boolean'
     ];
 

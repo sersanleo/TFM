@@ -12,7 +12,7 @@
                                 <select name="pet_id" class="form-select @error('pet_id') is-invalid @enderror"
                                     id="pet_id" required>
                                     <option value="">---------</option>
-                                    @foreach (App\Models\Pet::visibleBy(Auth::user())->get() as $pet)
+                                    @foreach (App\Models\Pet::visibleBy(Auth::user())->orderBy('name')->get() as $pet)
                                         <option value="{{ $pet->id }}"
                                             {{ (isset($appointment) ? $appointment->pet_id : old('pet_id')) == $pet->id ? 'selected' : '' }}>
                                             {{ $pet }}
@@ -32,7 +32,7 @@
                                 <select name="vet_id" class="form-select @error('vet_id') is-invalid @enderror"
                                     id="vet_id" required>
                                     <option value="">---------</option>
-                                    @foreach (App\Models\User::where('is_staff', true)->get() as $vet)
+                                    @foreach (App\Models\User::where('is_staff', true)->orderBy('first_name')->orderBy('last_name')->get() as $vet)
                                         <option value="{{ $vet->id }}"
                                             {{ (isset($appointment) ? $appointment->vet_id : old('vet_id')) == $vet->id ? 'selected' : '' }}>
                                             {{ $vet }}

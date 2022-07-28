@@ -24,7 +24,7 @@ class PetController extends Controller
 
     public function list()
     {
-        $pets = Pet::visibleBy(Auth::user())->paginate(10);
+        $pets = Pet::visibleBy(Auth::user())->orderBy('id', 'desc')->paginate(10);
         return view('pet.list')->with('pets', $pets);
     }
 

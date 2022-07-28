@@ -72,14 +72,14 @@ public class AppointmentController {
 
     @PostMapping("/delete")
     public String delete(@RequestParam Long appointment) {
-        if (appointmentRepository.visibleBy(appointment, getUser().getId()))
+        if (appointmentService.visibleBy(appointment, getUser()))
             appointmentRepository.deleteById(appointment);
         return "redirect:/appointment";
     }
 
     @GetMapping("/{appointmentId}")
     public String getEdit(@PathVariable Long appointmentId, Model model) {
-        if (!appointmentRepository.visibleBy(appointmentId, getUser().getId()))
+        if (!appointmentService.visibleBy(appointmentId, getUser()))
             return "redirect:/appointment";
         addFormOptionsToModel(getUser(), model);
         model.addAttribute("appointment", appointmentRepository.findById(appointmentId));
@@ -88,7 +88,7 @@ public class AppointmentController {
 
     @PostMapping("/{appointmentId}")
     public String postEdit(@Valid Appointment appointment, BindingResult bindingResult, Model model) {
-        if (appointmentRepository.visibleBy(appointment.getId(), getUser().getId())) {
+        if (appointmentService.visibleBy(appointment.getId(), getUser())) {
             validateAppointment(appointment, bindingResult);
             if (bindingResult.hasErrors()) {
                 addFormOptionsToModel(getUser(), model);
