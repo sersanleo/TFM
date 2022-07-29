@@ -37,7 +37,7 @@
                         </td>
                         <td>{{ appointment.pet }}</td>
                         <td>{{ appointment.vet }}</td>
-                        <td>{{ appointment.date }}</td>
+                        <td>{{ appointment.date|date:'d/m/Y H:i' }}</td>
                     </tr>
                     {% empty %}
                     <tr>

@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,7 +36,8 @@ public class PetController {
 
     @GetMapping()
     public String list(Model model, @RequestParam(required = false, defaultValue = "0") int page) {
-        model.addAttribute("pagination", petService.visibleBy(getUser(), PageRequest.of(page, 10)));
+        model.addAttribute("pagination",
+                petService.visibleBy(getUser(), PageRequest.of(page, 10).withSort(Sort.Direction.DESC, "id")));
         return "pet/list";
     }
 

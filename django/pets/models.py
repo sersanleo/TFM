@@ -27,7 +27,7 @@ class PetRace(Model):
         verbose_name_plural = 'Razas'
         default_related_name = 'races'
         unique_together = (('species', 'race'),)
-        ordering = ('species__name', 'race')
+        ordering = ('species', 'race')
 
     class Manager(Manager):
         def get_queryset(self):
@@ -36,7 +36,7 @@ class PetRace(Model):
     objects = Manager()
 
     def __str__(self):
-        return '{0} ({1})'.format(self.species.name, self.race.lower()) if self.race else self.species.name
+        return '{0} ({1})'.format(self.species.name, self.race) if self.race else self.species.name
 
 
 class Pet(Model):

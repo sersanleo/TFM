@@ -61,7 +61,7 @@
                             <i class="fas fa-mars" title="{{ pet.sex }}"></i>
                             {% endif %}
                         </td>
-                        <td>{{ pet.birthday|default_if_none:'' }}</td>
+                        <td>{{ pet.birthday|date:'d/m/Y'|default_if_none:'' }}</td>
                     </tr>
                     {% empty %}
                     <tr>

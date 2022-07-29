@@ -37,8 +37,8 @@
                             <div class="form-floating">
                                 <input id="password_confirmation" name="password_confirmation" type="password"
                                     class="form-control @error('password_confirmation') is-invalid @enderror"
-                                    placeholder="Repita la contraseña" required />
-                                <label for="password_confirmation">Repita la contraseña</label>
+                                    placeholder="Contraseña (confirmación)" required />
+                                <label for="password_confirmation">Contraseña (confirmación)</label>
                             </div>
                             @error('password_confirmation')
                                 <div class="invalid-feedback d-block">

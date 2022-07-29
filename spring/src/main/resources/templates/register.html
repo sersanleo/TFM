@@ -32,8 +32,8 @@
                                 <div class="form-floating">
                                     <input id="repeat-password" th:field="*{passwordConfirmation}" type="password"
                                         th:classappend="${#fields.hasErrors('passwordConfirmation')} ? 'is-invalid' : ''"
-                                        class="form-control" placeholder="Contraseña" required />
-                                    <label for="repeat-password">Repita la contraseña</label>
+                                        class="form-control" placeholder="Contraseña (confirmación)" required />
+                                    <label for="repeat-password">Contraseña (confirmación)</label>
                                 </div>
                                 <ul class="invalid-feedback d-block"
                                     th:if="${#fields.hasErrors('passwordConfirmation')}">

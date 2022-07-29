@@ -55,10 +55,10 @@
                                 </td>
                                 <td>{{ $pet->race }}</td>
                                 <td class="text-center">
-                                    @if ($pet->sex == App\Enum\Sexes::Female)
-                                        <i class="fas fa-venus" title="{{ $pet->sex->name }}"></i>
-                                    @elseif($pet->sex == App\Enum\Sexes::Male)
-                                        <i class="fas fa-mars" title="{{ $pet->sex->name }}"></i>
+                                    @if ($pet->sex == 'F')
+                                        <i class="fas fa-venus"></i>
+                                    @elseif($pet->sex == 'M')
+                                        <i class="fas fa-mars"></i>
                                     @endif
                                 </td>
                                 <td>
