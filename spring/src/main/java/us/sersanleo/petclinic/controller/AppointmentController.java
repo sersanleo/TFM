@@ -89,13 +89,15 @@ public class AppointmentController {
     }
 
     @PostMapping("/{appointmentId}")
-    public String postEdit(@Valid Appointment appointment, BindingResult bindingResult, Model model) {
-        if (appointmentService.visibleBy(appointment.getId(), getUser())) {
+    public String postEdit(@PathVariable Long appointmentId, @Valid Appointment appointment,
+            BindingResult bindingResult, Model model) {
+        if (appointmentService.visibleBy(appointmentId, getUser())) {
             validateAppointment(appointment, bindingResult);
             if (bindingResult.hasErrors()) {
                 addFormOptionsToModel(getUser(), model);
                 return "appointment/edit";
             }
+            appointment.setId(appointmentId);
             appointmentRepository.save(appointment);
         }
         return "redirect:/appointment";

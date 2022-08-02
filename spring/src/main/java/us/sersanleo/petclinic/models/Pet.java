@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -23,9 +24,11 @@ import javax.validation.constraints.Size;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -62,6 +65,7 @@ public class Pet {
     private boolean deceased;
 
     @CreatedDate
+    @Column(updatable = false)
     private Timestamp createdAt;
 
     @LastModifiedDate

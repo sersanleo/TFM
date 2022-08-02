@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-07-2022 a las 20:34:02
+-- Tiempo de generación: 02-08-2022 a las 17:30:14
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -68,7 +68,7 @@ CREATE TABLE `flyway_schema_history` (
 --
 
 INSERT INTO `flyway_schema_history` (`installed_rank`, `version`, `description`, `type`, `script`, `checksum`, `installed_by`, `installed_on`, `execution_time`, `success`) VALUES
-(1, '1', 'Init', 'SQL', 'V1__Init.sql', -1737508309, 'root', '2022-07-28 19:19:51', 145, 1);
+(1, '1', 'Init', 'SQL', 'V1__Init.sql', 1498132239, 'root', '2022-07-28 19:19:51', 145, 1);
 
 -- --------------------------------------------------------
 
@@ -186,6 +186,7 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `address`, `birthday`, `ema
 --
 ALTER TABLE `appointment`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK9ttaa6se6wl6gehdooo6cqxr2` (`vet_id`,`date`),
   ADD KEY `FK8y0it8yrd322ps2jklm5f8e07` (`pet_id`),
   ADD KEY `FKbidbah9ubxvfd66a82hql55de` (`vet_id`);
 
