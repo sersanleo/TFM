@@ -14,7 +14,7 @@
                                     <option value="">---------</option>
                                     @foreach (App\Models\Pet::visibleBy(Auth::user())->orderBy('name')->get() as $pet)
                                         <option value="{{ $pet->id }}"
-                                            {{ (isset($appointment) ? $appointment->pet_id : old('pet_id')) == $pet->id ? 'selected' : '' }}>
+                                            {{ old('pet_id', $appointment?->pet_id) == $pet->id ? 'selected' : '' }}>
                                             {{ $pet }}
                                         </option>
                                     @endforeach
@@ -34,7 +34,7 @@
                                     <option value="">---------</option>
                                     @foreach (App\Models\User::where('is_staff', true)->orderBy('first_name')->orderBy('last_name')->get() as $vet)
                                         <option value="{{ $vet->id }}"
-                                            {{ (isset($appointment) ? $appointment->vet_id : old('vet_id')) == $vet->id ? 'selected' : '' }}>
+                                            {{ old('vet_id', $appointment?->vet_id) == $vet->id ? 'selected' : '' }}>
                                             {{ $vet }}
                                         </option>
                                     @endforeach
@@ -50,8 +50,7 @@
                         <div class="col-12">
                             <div class="form-floating">
                                 <input type="datetime-local" name="date" class="form-control" placeholder="Fecha y hora"
-                                    value="{{ isset($appointment) ? $appointment->date : old('date') }}" required
-                                    id="id_date">
+                                    value="{{ old('date', $appointment?->date) }}" required id="id_date">
                                 <label for="id_date">Fecha y hora</label>
                             </div>
                             @error('date')
@@ -63,7 +62,7 @@
                         <div class="col-12">
                             <div class="form-floating">
                                 <textarea name="annotations" style="height:7rem" class="form-control @error('annotations') is-invalid @enderror"
-                                    placeholder="Anotaciones" id="annotations">{{ isset($appointment) ? $appointment->annotations : old('annotations') }}</textarea>
+                                    placeholder="Anotaciones" id="annotations">{{ old('annotations', $appointment?->annotations) }}</textarea>
                                 <label for="annotations">Anotaciones</label>
                             </div>
                             @error('annotations')

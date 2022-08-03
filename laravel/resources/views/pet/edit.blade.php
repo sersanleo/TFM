@@ -4,6 +4,7 @@
     <div class="row g-3 justify-content-center align-items-center">
         <div class="col-12 col-md-8 col-xl-6">
             <form class="card shadow" method="post">
+                {{ Request::post('pet_id') }}
                 @csrf
                 <div class="card-body">
                     <div class="row g-3">
@@ -14,7 +15,7 @@
                                     <option value="">---------</option>
                                     @foreach (App\Models\User::orderBy('first_name')->orderBy('last_name')->get() as $user)
                                         <option value="{{ $user->id }}"
-                                            {{ (isset($pet) ? $pet->owner_id : old('owner_id')) == $user->id ? 'selected' : '' }}>
+                                            {{ old('owner_id', $pet?->owner_id) == $user->id ? 'selected' : '' }}>
                                             {{ $user }}
                                         </option>
                                     @endforeach
@@ -31,8 +32,7 @@
                             <div class="form-floating">
                                 <input id="name" name="name" type="text"
                                     class="form-control @error('name') is-invalid @enderror"
-                                    value="{{ isset($pet) ? $pet->name : old('name') }}" autocomplete="given-name"
-                                    placeholder="Nombre" required />
+                                    value="{{ old('name', $pet?->name) }}" placeholder="Nombre" required />
                                 <label for="name">Nombre</label>
                             </div>
                             @error('name')
@@ -48,7 +48,7 @@
                                     <option value="">---------</option>
                                     @foreach (App\Models\PetRace::orderBy('species_id')->orderBy('race')->get() as $race)
                                         <option value="{{ $race->id }}"
-                                            {{ (isset($pet) ? $pet->race_id : old('race_id')) == $race->id ? 'selected' : '' }}>
+                                            {{ old('race_id', $pet?->race_id) == $race->id ? 'selected' : '' }}>
                                             {{ $race }}</option>
                                     @endforeach
                                 </select>
@@ -65,12 +65,10 @@
                                 <select name="sex" class="form-select @error('sex') is-invalid @enderror"
                                     placeholder="Sexo" id="sex">
                                     <option value="">---------</option>
-                                    <option value="F"
-                                        {{ (isset($pet) ? $pet->sex : old('sex')) == 'F' ? 'selected' : '' }}>
+                                    <option value="F" {{ old('sex', $pet?->sex) == 'F' ? 'selected' : '' }}>
                                         Hembra
                                     </option>
-                                    <option value="M"
-                                        {{ (isset($pet) ? $pet->sex : old('sex')) == 'M' ? 'selected' : '' }}>
+                                    <option value="M" {{ old('sex', $pet?->sex) == 'M' ? 'selected' : '' }}>
                                         Macho
                                     </option>
                                 </select>
@@ -85,8 +83,8 @@
                         <div class="col-12">
                             <div class="form-floating">
                                 <input id="birthday" name="birthday" type="date"
-                                    class="form-control @error('birthday') is-invalid @enderror" autocomplete="bday"
-                                    value="{{ isset($pet) ? $pet->birthday->format('Y-m-d') : old('birthday') }}"
+                                    class="form-control @error('birthday') is-invalid @enderror"
+                                    value="{{ old('birthday', $pet?->birthday->format('Y-m-d')) }}"
                                     placeholder="Fecha de nacimiento" />
                                 <label for="birthday">Fecha de nacimiento</label>
                             </div>
@@ -99,7 +97,7 @@
                         <div class="col-12">
                             <div class="form-floating">
                                 <textarea name="annotations" style="height:7rem" class="form-control @error('annotations') is-invalid @enderror"
-                                    placeholder="Anotaciones" id="annotations">{{ isset($pet) ? $pet->annotations : old('annotations') }}</textarea>
+                                    placeholder="Anotaciones" id="annotations">{{ old('annotations', $pet?->annotations) }}</textarea>
                                 <label for="annotations">Anotaciones</label>
                             </div>
                             @error('annotations')
@@ -113,7 +111,7 @@
                                 <input type="checkbox" name="deceased"
                                     class="form-check-input @error('deceased') is-invalid @enderror"
                                     placeholder="¿Ha fallecido?" id="deceased"
-                                    {{ (isset($pet) ? $pet->deceased : old('deceased')) == 'on' ? 'checked' : '' }}>
+                                    {{ old('deceased', $pet?->deceased) == 'on' ? 'checked' : '' }}>
                                 <label class="form-check-label" for="deceased">
                                     ¿Ha fallecido?
                                 </label>

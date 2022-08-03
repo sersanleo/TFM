@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Enum\Sexes;
 use App\Models\Pet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Enum;
+use Illuminate\Validation\Rule;
 
 class PetController extends Controller
 {
@@ -16,7 +15,7 @@ class PetController extends Controller
             'owner_id' => 'required|exists:users,id',
             'name' => 'required|max:30',
             'race_id' => 'nullable|exists:pet_races,id',
-            'sex' => ['nullable', new Enum(Sexes::class)],
+            'sex' => ['nullable', Rule::in(['M', 'F'])],
             'birthday' => 'nullable|date|before:today',
             'annotations' => 'nullable'
         ]);
@@ -30,7 +29,7 @@ class PetController extends Controller
 
     public function create_get()
     {
-        return view('pet.edit');
+        return view('pet.edit')->with('pet', null);
     }
 
     public function create_post(Request $request)

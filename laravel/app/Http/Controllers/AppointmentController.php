@@ -11,7 +11,7 @@ use Illuminate\Validation\Rule;
 
 class AppointmentController extends Controller
 {
-    private function validateAppointment(Request $request)
+    private function validateAppointment(Request $request, $appointmentId = null)
     {
         return $request->validate([
             'pet_id' => ['required',  Rule::exists(Pet::class, 'id')->where(function ($query) {
@@ -20,7 +20,14 @@ class AppointmentController extends Controller
             'vet_id' => ['required', Rule::exists(User::class, 'id')->where(function ($query) {
                 return $query->where('is_staff', true);
             })],
-            'date' => 'required|date|after:today',
+            'date' => [
+                'required', 'date', 'after:today',
+                function ($attribute, $value, $fail) {
+                    if (date('N', strtotime($value)) >= 6)
+                        $fail('Los fines de semana no se pueden reservar citas.');
+                },
+                Rule::unique('appointments')->where(fn ($query) => $query->where('vet_id', $request->input('vet_id')))->ignore($appointmentId)
+            ],
             'annotations' => 'nullable'
         ]);
     }
@@ -33,7 +40,7 @@ class AppointmentController extends Controller
 
     public function create_get()
     {
-        return view('appointment.edit');
+        return view('appointment.edit')->with('appointment', null);
     }
 
     public function create_post(Request $request)
@@ -52,7 +59,7 @@ class AppointmentController extends Controller
     public function edit_post(Request $request, Appointment $appointment)
     {
         if (Appointment::visibleBy(Auth::user())->where('id', $appointment->id)->exists()) {
-            $appointment->update(AppointmentController::validateAppointment($request));
+            $appointment->update(AppointmentController::validateAppointment($request, $appointment->id));
             return redirect()->route('appointment.list');
         }
         abort(404);
