@@ -4,7 +4,6 @@
     <div class="row g-3 justify-content-center align-items-center">
         <div class="col-12 col-md-8 col-xl-6">
             <form class="card shadow" method="post">
-                {{ Request::post('pet_id') }}
                 @csrf
                 <div class="card-body">
                     <div class="row g-3">
