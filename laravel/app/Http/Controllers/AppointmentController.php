@@ -7,11 +7,12 @@ use App\Models\Pet;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class AppointmentController extends Controller
 {
-    private function validateAppointment(Request $request, $appointmentId = null)
+    public static function validateAppointment(Request $request, $appointmentId = null)
     {
         return $request->validate([
             'pet_id' => ['required',  Rule::exists(Pet::class, 'id')->where(function ($query) {
@@ -40,29 +41,28 @@ class AppointmentController extends Controller
 
     public function create_get()
     {
+        Gate::authorize('create-appointment');
         return view('appointment.edit')->with('appointment', null);
     }
 
     public function create_post(Request $request)
     {
+        Gate::authorize('create-appointment');
         Appointment::create(AppointmentController::validateAppointment($request));
         return redirect()->route('appointment.list');
     }
 
     public function edit_get(Appointment $appointment)
     {
-        if (Appointment::visibleBy(Auth::user())->where('id', $appointment->id)->exists())
-            return view('appointment.edit')->with('appointment', $appointment);
-        abort(404);
+        Gate::authorize('update-appointment', $appointment);
+        return view('appointment.edit')->with('appointment', $appointment);
     }
 
     public function edit_post(Request $request, Appointment $appointment)
     {
-        if (Appointment::visibleBy(Auth::user())->where('id', $appointment->id)->exists()) {
-            $appointment->update(AppointmentController::validateAppointment($request, $appointment->id));
-            return redirect()->route('appointment.list');
-        }
-        abort(404);
+        Gate::authorize('update-appointment', $appointment);
+        $appointment->update(AppointmentController::validateAppointment($request, $appointment->id));
+        return redirect()->route('appointment.list');
     }
 
     public function delete(Request $request)
@@ -70,11 +70,10 @@ class AppointmentController extends Controller
         $appointmentId = $request->validate([
             'appointment' => 'required|exists:appointments,id'
         ])['appointment'];
+        $appointment = Appointment::find($appointmentId);
 
-        if (Appointment::visibleBy(Auth::user())->where('id', $appointmentId)->exists()) {
-            Appointment::find($appointmentId)->delete();
-            return redirect()->route('appointment.list');
-        }
-        abort(404);
+        Gate::authorize('delete-appointment', $appointment);
+        $appointment->delete();
+        return redirect()->route('appointment.list');
     }
 }

@@ -9,6 +9,10 @@ class PetRace extends Model
 {
     use HasFactory;
 
+    protected $hidden = ['species_id'];
+
+    protected $with = ['species'];
+
     public function species()
     {
         return $this->belongsTo(PetSpecies::class);

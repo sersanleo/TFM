@@ -26,6 +26,10 @@ class Pet extends Model
         'deceased' => 'boolean'
     ];
 
+    protected $hidden = ['race_id'];
+
+    protected $with = ['race'];
+
     public function owner()
     {
         return $this->belongsTo(User::class);

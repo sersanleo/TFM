@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Pet;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class PetController extends Controller
 {
-    private function validatePet(Request $request)
+    public static function validatePet(Request $request)
     {
         return ['deceased' => $request->input('deceased') ? true : false] + $request->validate([
             'owner_id' => 'required|exists:users,id',
@@ -29,29 +30,28 @@ class PetController extends Controller
 
     public function create_get()
     {
+        Gate::authorize('create-pet');
         return view('pet.edit')->with('pet', null);
     }
 
     public function create_post(Request $request)
     {
+        Gate::authorize('create-pet');
         Pet::create(PetController::validatePet($request));
         return redirect()->route('pet.list');
     }
 
     public function edit_get(Pet $pet)
     {
-        if (Pet::visibleBy(Auth::user())->where('id', $pet->id)->exists())
-            return view('pet.edit')->with('pet', $pet);
-        abort(404);
+        Gate::authorize('update-pet', $pet);
+        return view('pet.edit')->with('pet', $pet);
     }
 
     public function edit_post(Request $request, Pet $pet)
     {
-        if (Pet::visibleBy(Auth::user())->where('id', $pet->id)->exists()) {
-            $pet->update(PetController::validatePet($request));
-            return redirect()->route('pet.list');
-        }
-        abort(404);
+        Gate::authorize('update-pet', $pet);
+        $pet->update(PetController::validatePet($request));
+        return redirect()->route('pet.list');
     }
 
     public function delete(Request $request)
@@ -59,11 +59,10 @@ class PetController extends Controller
         $petId = $request->validate([
             'pet' => 'required|exists:pets,id'
         ])['pet'];
+        $pet = Pet::find($petId);
 
-        if (Pet::visibleBy(Auth::user())->where('id', $petId)->exists()) {
-            Pet::find($petId)->delete();
-            return redirect()->route('pet.list');
-        }
-        abort(404);
+        Gate::authorize('delete-pet', $pet);
+        $pet->delete();
+        return redirect()->route('pet.list');
     }
 }

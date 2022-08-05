@@ -20,6 +20,10 @@ class Appointment extends Model
         'date' => 'datetime:Y-m-d',
     ];
 
+    protected $hidden = ['pet_id'];
+
+    protected $with = ['pet'];
+
     public function vet()
     {
         return $this->belongsTo(User::class);
