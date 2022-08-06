@@ -15,12 +15,8 @@ class AppointmentController extends Controller
     public static function validateAppointment(Request $request, $appointmentId = null)
     {
         return $request->validate([
-            'pet_id' => ['required',  Rule::exists(Pet::class, 'id')->where(function ($query) {
-                return Pet::visibleBy(Auth::user());
-            })],
-            'vet_id' => ['required', Rule::exists(User::class, 'id')->where(function ($query) {
-                return $query->where('is_staff', true);
-            })],
+            'pet_id' => ['required',  Rule::exists(Pet::class, 'id')->where(fn ($query) => Pet::visibleBy(Auth::user()))],
+            'vet_id' => ['required', Rule::exists(User::class, 'id')->where(fn ($query) => $query->where('is_staff', true))],
             'date' => [
                 'required', 'date', 'after:today',
                 function ($attribute, $value, $fail) {

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\PetRace;
-use Illuminate\Http\Request;
 
 class PetRaceAPIController extends Controller
 {
@@ -14,72 +13,6 @@ class PetRaceAPIController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\PetRace  $petRace
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PetRace $petRace)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\PetRace  $petRace
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PetRace $petRace)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PetRace  $petRace
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, PetRace $petRace)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\PetRace  $petRace
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(PetRace $petRace)
-    {
-        //
+        return PetRace::all();
     }
 }

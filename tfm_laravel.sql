@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-07-2022 a las 20:33:57
+-- Tiempo de generación: 06-08-2022 a las 14:44:03
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -112,6 +112,15 @@ CREATE TABLE `personal_access_tokens` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `personal_access_tokens`
+--
+
+INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `created_at`, `updated_at`) VALUES
+(1, 'App\\Models\\User', 1, 'API_TOKEN', '1dacc95257841fbdc785866e218b2e4a507203d1b08f58e3eda620a321420886', '[\"*\"]', NULL, '2022-08-06 10:42:10', '2022-08-06 10:42:10'),
+(2, 'App\\Models\\User', 2, 'API_TOKEN', '8e1126cc49672337294ed6c4159e55597abde016258e19b2338afaab3647e1e0', '[\"*\"]', NULL, '2022-08-06 10:42:29', '2022-08-06 10:42:29'),
+(3, 'App\\Models\\User', 3, 'API_TOKEN', '814df21735ed3a4e9917b3663ef6c96501eb75ba3f804ed12efa74ae2901021a', '[\"*\"]', NULL, '2022-08-06 10:42:52', '2022-08-06 10:42:52');
 
 -- --------------------------------------------------------
 
@@ -320,7 +329,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT de la tabla `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pets`
@@ -354,7 +363,7 @@ ALTER TABLE `users`
 -- Filtros para la tabla `appointments`
 --
 ALTER TABLE `appointments`
-  ADD CONSTRAINT `appointments_pet_id_foreign` FOREIGN KEY (`pet_id`) REFERENCES `pets` (`id`),
+  ADD CONSTRAINT `appointments_pet_id_foreign` FOREIGN KEY (`pet_id`) REFERENCES `pets` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `appointments_vet_id_foreign` FOREIGN KEY (`vet_id`) REFERENCES `users` (`id`);
 
 --
@@ -362,7 +371,7 @@ ALTER TABLE `appointments`
 --
 ALTER TABLE `pets`
   ADD CONSTRAINT `pets_owner_id_foreign` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `pets_race_id_foreign` FOREIGN KEY (`race_id`) REFERENCES `pet_races` (`id`);
+  ADD CONSTRAINT `pets_race_id_foreign` FOREIGN KEY (`race_id`) REFERENCES `pet_races` (`id`) ON DELETE SET NULL;
 
 --
 -- Filtros para la tabla `pet_races`

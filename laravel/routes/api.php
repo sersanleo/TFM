@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AppointmentAPIController;
 use App\Http\Controllers\PetAPIController;
+use App\Http\Controllers\PetRaceAPIController;
+use App\Http\Controllers\VetAPIController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,11 +18,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum', 'api.headers')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
     Route::apiResource('pet', PetAPIController::class);
     Route::apiResource('appointment', AppointmentAPIController::class);
+    Route::resource('petrace', PetRaceAPIController::class)->only(['index']);
+    Route::resource('vet', VetAPIController::class)->only(['index']);
 });

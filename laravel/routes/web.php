@@ -20,13 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('', function (Request $request) {
-    if (Auth::check()) {
-        $token = $request->user()->createToken('API_TOKEN');
-        return ['token' => $token->plainTextToken];
-    }
-    return view('index');
-})->name('home');
+Route::get('', fn (Request $request) => view('index'))->name('home');
 
 Route::middleware('guest')->group(function () {
     Route::controller(LoginController::class)->group(function () {

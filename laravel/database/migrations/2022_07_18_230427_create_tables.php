@@ -36,7 +36,7 @@ return new class extends Migration
             $table->unsignedBigInteger('owner_id');
             $table->timestamps();
 
-            $table->foreign('race_id')->references('id')->on('pet_races');
+            $table->foreign('race_id')->references('id')->on('pet_races')->nullOnDelete();
             $table->foreign('owner_id')->references('id')->on('users');
         });
         Schema::create('appointments', function (Blueprint $table) {
@@ -47,7 +47,7 @@ return new class extends Migration
             $table->unsignedBigInteger('vet_id');
             $table->timestamps();
 
-            $table->foreign('pet_id')->references('id')->on('pets');
+            $table->foreign('pet_id')->references('id')->on('pets')->cascadeOnDelete();
             $table->foreign('vet_id')->references('id')->on('users');
             $table->unique(['date', 'vet_id']);
         });
