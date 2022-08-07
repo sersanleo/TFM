@@ -24,7 +24,7 @@ import us.sersanleo.petclinic.service.AppointmentService;
 import us.sersanleo.petclinic.service.PetService;
 
 @Controller
-@RequestMapping(path = "/appointment")
+@RequestMapping("/appointment")
 public class AppointmentController {
     @Autowired
     private AppointmentRepository appointmentRepository;

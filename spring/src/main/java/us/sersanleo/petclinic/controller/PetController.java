@@ -23,7 +23,7 @@ import us.sersanleo.petclinic.repository.UserRepository;
 import us.sersanleo.petclinic.service.PetService;
 
 @Controller
-@RequestMapping(path = "/pet")
+@RequestMapping("/pet")
 public class PetController {
     @Autowired
     private PetRepository petRepository;

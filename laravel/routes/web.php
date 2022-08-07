@@ -1,10 +1,8 @@
 <?php
 
 use App\Http\Controllers\AppointmentController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\PetController;
-use App\Http\Controllers\RegisterController;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -23,13 +21,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('', fn (Request $request) => view('index'))->name('home');
 
 Route::middleware('guest')->group(function () {
-    Route::controller(LoginController::class)->group(function () {
-        Route::get('login', 'get')->name('login');
-        Route::post('login', 'post');
-    });
-    Route::controller(RegisterController::class)->group(function () {
-        Route::get('register', 'get')->name('register');
-        Route::post('register', 'post');
+    Route::controller(AuthenticationController::class)->group(function () {
+        Route::get('login', 'get_login')->name('login');
+        Route::post('login', 'post_login');
+        Route::get('register', 'get_register')->name('register');
+        Route::post('register', 'post_register');
     });
 });
 

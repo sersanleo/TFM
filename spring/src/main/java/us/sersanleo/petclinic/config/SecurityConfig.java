@@ -18,13 +18,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.headers().frameOptions().sameOrigin();
+        http.csrf().ignoringAntMatchers("/api/**");
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login", "/register").anonymous()
-                .antMatchers("/pet/?**").hasAnyAuthority("VET")
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
                 .and().formLogin().loginPage("/login").loginProcessingUrl("/login")
                 .and().logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/");
+        // http.authorizeRequests()
+        // .antMatchers("/").permitAll()
+        // .antMatchers("/login", "/register").anonymous()
+        // .antMatchers("/pet/?**").hasAnyAuthority("VET")
+        // .anyRequest().authenticated()
+        // .and().formLogin().loginPage("/login").loginProcessingUrl("/login")
+        // .and().logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/");
         return http.build();
     }
 
