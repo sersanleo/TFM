@@ -19,10 +19,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum', 'api.headers')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
-
     Route::apiResource('pet', PetAPIController::class);
     Route::apiResource('appointment', AppointmentAPIController::class);
     Route::resource('petrace', PetRaceAPIController::class)->only(['index']);

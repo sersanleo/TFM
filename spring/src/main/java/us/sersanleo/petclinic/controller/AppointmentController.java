@@ -40,7 +40,8 @@ public class AppointmentController {
         model.addAttribute("vets", userRepository.findAllVets());
     }
 
-    private void validateAppointment(Appointment appointment, BindingResult bindingResult) {
+    public static void validateAppointment(Appointment appointment, BindingResult bindingResult,
+            PetService petService) {
         if (!bindingResult.hasFieldErrors("vet") && !appointment.getVet().isStaff())
             bindingResult.rejectValue("vet", "user.notVet");
         if (!bindingResult.hasFieldErrors("pet") && !petService.visibleBy(getUser(), appointment.getPet()))
@@ -63,7 +64,7 @@ public class AppointmentController {
 
     @PostMapping("/create")
     public String postCreate(@Valid Appointment appointment, BindingResult bindingResult, Model model) {
-        validateAppointment(appointment, bindingResult);
+        validateAppointment(appointment, bindingResult, petService);
         if (bindingResult.hasErrors()) {
             addFormOptionsToModel(getUser(), model);
             return "appointment/edit";
@@ -92,7 +93,7 @@ public class AppointmentController {
     public String postEdit(@PathVariable Long appointmentId, @Valid Appointment appointment,
             BindingResult bindingResult, Model model) {
         if (appointmentService.visibleBy(appointmentId, getUser())) {
-            validateAppointment(appointment, bindingResult);
+            validateAppointment(appointment, bindingResult, petService);
             if (bindingResult.hasErrors()) {
                 addFormOptionsToModel(getUser(), model);
                 return "appointment/edit";

@@ -2,6 +2,7 @@ package us.sersanleo.petclinic.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,19 +19,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.headers().frameOptions().sameOrigin();
-        http.csrf().ignoringAntMatchers("/api/**");
+        http.csrf().ignoringAntMatchers("/api/**").and().httpBasic();
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .anyRequest().permitAll()
+                .antMatchers("/login", "/register").anonymous()
+                .antMatchers("/pet/?**").hasAnyAuthority("VET")
+                .antMatchers(HttpMethod.GET, "/api/pet/**").authenticated()
+                .antMatchers("/api/pet/**").hasAnyAuthority("VET")
+                .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").loginProcessingUrl("/login")
                 .and().logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/");
-        // http.authorizeRequests()
-        // .antMatchers("/").permitAll()
-        // .antMatchers("/login", "/register").anonymous()
-        // .antMatchers("/pet/?**").hasAnyAuthority("VET")
-        // .anyRequest().authenticated()
-        // .and().formLogin().loginPage("/login").loginProcessingUrl("/login")
-        // .and().logout().deleteCookies("JSESSIONID").logoutSuccessUrl("/");
         return http.build();
     }
 
