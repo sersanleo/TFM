@@ -2,6 +2,8 @@ package us.sersanleo.petclinic.controller.api;
 
 import static us.sersanleo.petclinic.Util.getUser;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +41,13 @@ public class AppointmentAPIController {
     @Autowired
     private PetService petService;
 
+    private final ResponseEntity<Object> getErrorResponse(BindingResult bindingResult) {
+        List<String> details = new ArrayList<>();
+        for (ObjectError error : bindingResult.getAllErrors())
+            details.add(error.getDefaultMessage());
+        return new ResponseEntity(details, HttpStatus.BAD_REQUEST);
+    }
+
     @GetMapping
     public Page<Appointment> list(@RequestParam(required = false, defaultValue = "0") int page) {
         return appointmentService.visibleBy(getUser(),
@@ -54,17 +64,26 @@ public class AppointmentAPIController {
     }
 
     @PostMapping
-    public Object create(@Validated @RequestBody Appointment appointment, BindingResult bindingResult) {
+    public ResponseEntity create(@Validated @RequestBody Appointment appointment, BindingResult bindingResult) {
         AppointmentController.validateAppointment(appointment, bindingResult, petService);
         if (bindingResult.hasErrors())
-            return bindingResult;
-        return appointmentRepository.save(appointment);
+            return getErrorResponse(bindingResult);
+        appointmentRepository.save(appointment);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{appointmentId}")
-    public Appointment update(@PathVariable Long appointmentId, @Validated @RequestBody Appointment appointment) {
-        appointment.setId(appointmentId);
-        return appointmentRepository.save(appointment);
+    public ResponseEntity update(@PathVariable Long appointmentId, @Validated @RequestBody Appointment appointment,
+            BindingResult bindingResult) {
+        if (appointmentService.visibleBy(appointmentId, getUser())) {
+            AppointmentController.validateAppointment(appointment, bindingResult, petService);
+            if (bindingResult.hasErrors())
+                return getErrorResponse(bindingResult);
+            appointment.setId(appointmentId);
+            appointmentRepository.save(appointment);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
     }
 
     @DeleteMapping("/{appointmentId}")

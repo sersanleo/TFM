@@ -35,7 +35,10 @@ public class PetDeserializer extends JsonDeserializer<Pet> {
         pet.setOwner(userRepository.findById(node.get("owner").asLong()).orElse(null));
         pet.setRace(petRaceRepository.findById(node.get("race").asLong()).orElse(null));
         pet.setName(node.get("name").asText());
-        pet.setSex(Sex.valueOf(node.get("sex").asText()));
+        try {
+            pet.setSex(Sex.valueOf(node.get("sex").asText()));
+        } catch (IllegalArgumentException e) {
+        }
         try {
             pet.setBirthday(DATE_FORMAT.parse(node.get("birthday").asText()));
         } catch (ParseException e) {

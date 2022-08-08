@@ -46,14 +46,16 @@ public class PetAPIController {
     }
 
     @PostMapping
-    public Pet create(@Validated @RequestBody Pet pet) {
-        return petRepository.save(pet);
+    public ResponseEntity create(@Validated @RequestBody Pet pet) {
+        petRepository.save(pet);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{petId}")
-    public Pet update(@PathVariable Long petId, @Validated @RequestBody Pet pet) {
+    public ResponseEntity update(@PathVariable Long petId, @Validated @RequestBody Pet pet) {
         pet.setId(petId);
-        return petRepository.save(pet);
+        petRepository.save(pet);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @DeleteMapping("/{petId}")
