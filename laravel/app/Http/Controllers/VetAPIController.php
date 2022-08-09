@@ -13,10 +13,6 @@ class VetAPIController extends Controller
      */
     public function index()
     {
-        return User::where('is_staff', true)->get()->map(fn ($user) => [
-            'id' => $user->id,
-            'first_name' => $user->first_name,
-            'last_name' => $user->last_name
-        ]);
+        return User::where('is_staff', true)->get();
     }
 }

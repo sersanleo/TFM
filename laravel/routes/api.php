@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum', 'api.headers')->group(function () {
-    Route::apiResource('pet', PetAPIController::class);
-    Route::apiResource('appointment', AppointmentAPIController::class);
+    Route::apiResources([
+        'pet' => PetAPIController::class,
+        'appointment' => AppointmentAPIController::class,
+    ]);
     Route::resource('petrace', PetRaceAPIController::class)->only(['index']);
     Route::resource('vet', VetAPIController::class)->only(['index']);
 });
