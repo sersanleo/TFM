@@ -1,8 +1,9 @@
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 
 from appointments.models import *
 from django.test import TestCase
 from django.urls import reverse
+from django.utils import timezone
 from pets.models import *
 
 from .models import *
@@ -33,8 +34,8 @@ class RegisterTestCase(TestCase):
                 race=PetRace.objects.get(race='Siamés'), name='Bob'),
         ])
 
-        hoy = datetime.now() + timedelta(days=1)
-        proximo_lunes = hoy + timedelta(days=(7 - hoy.weekday()) % 7)
+        hoy = timezone.now() + timedelta(days=1)
+        proximo_lunes = hoy + timedelta(days=(0 - hoy.weekday()) % 7)
         Appointment.objects.bulk_create([
             Appointment(pet=Pet.objects.get(name='Firulais'),
                         vet=User.objects.get(email='vet1@petclinic.com'), date=proximo_lunes),

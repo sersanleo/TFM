@@ -1,17 +1,19 @@
-from datetime import datetime, timedelta
+from datetime import timedelta
 
 from appointments.models import *
-from django.http import HttpResponse
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
+from django.utils import timezone
 from petclinic.models import *
 
 from pets import views
 from pets.models import *
 
 
-class RegisterTestCase(TestCase):
+class PetTestCase(TestCase):
     def setUp(self):
+        self.factory = RequestFactory()
+
         self.vet = User.objects.create_superuser(email='vet1@petclinic.com', password='vet1', first_name='Test vet1',
                                                  last_name='Test', address='Test address', birthday=date(1999, 8, 10))
         self.customer1 = User.objects.create_user(email='customer1@petclinic.com', password='customer1', first_name='Test customer1',
@@ -34,8 +36,6 @@ class RegisterTestCase(TestCase):
             Pet(owner=User.objects.get(email='customer2@petclinic.com'),
                 race=PetRace.objects.get(race='Siamés'), name='Bob'),
         ])
-
-        self.factory = RequestFactory()
 
     def test_delete_successfully(self):
         pet_count = Pet.objects.count()
@@ -81,7 +81,7 @@ class RegisterTestCase(TestCase):
             'owner': pet.owner.pk,
             'race': pet.race.pk,
             'name': pet.name,
-            'birthday':  (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+            'birthday':  (timezone.now() + timedelta(days=1)).strftime('%Y-%m-%d')
         })
         request.user = self.vet
 
