@@ -1,9 +1,9 @@
-from django.utils.translation import gettext_lazy as _
 from datetime import date
 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.core.validators import *
 from django.db.models import *
+from django.utils.translation import gettext_lazy as _
 
 '''
 https://www.fomfus.com/articles/how-to-use-email-as-username-for-django-authentication-removing-the-username/
@@ -59,4 +59,4 @@ class User(AbstractUser):  # get_user_model()
     objects = UserManager()
 
     def __str__(self):
-        return '{0} {1}'.format(self.first_name, self.last_name)
+        return self.get_full_name()
