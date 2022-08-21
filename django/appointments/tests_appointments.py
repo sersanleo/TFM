@@ -59,20 +59,21 @@ class AppointmentTestCase(TestCase):
         self.assertEquals(Appointment.objects.count(), appointment_count - 1)
 
     def test_delete_unsuccessfully(self):
+        customer = self.customer1
         appointment_count = Appointment.objects.count()
-        appointment = Appointment.objects.first()
+        appointment = Appointment.objects.exclude(pet__owner=customer).first()
 
         request = self.factory.post(reverse('appointment:delete'), {
             'appointment': appointment.pk
         })
-        request.user = self.customer1
+        request.user = customer
 
         views.delete(request)
         self.assertEquals(Appointment.objects.count(), appointment_count)
 
     def test_edit_successfully(self):
         appointment = Appointment.objects.first()
-        new_date = appointment.date
+        new_date = appointment.date + timedelta(days=7)
         request = self.factory.post(reverse('appointment:edit', args=[appointment.pk]), {
             'pet': appointment.pet.pk,
             'vet': appointment.vet.pk,
@@ -86,7 +87,7 @@ class AppointmentTestCase(TestCase):
 
     def test_edit_unsuccessfully(self):
         appointment = Appointment.objects.first()
-        new_date = Appointment.objects.last()
+        new_date = Appointment.objects.last().date
         request = self.factory.post(reverse('appointment:edit', args=[appointment.pk]), {
             'pet': appointment.pet.pk,
             'vet': appointment.vet.pk,

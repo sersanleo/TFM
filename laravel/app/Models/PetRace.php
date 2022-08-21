@@ -9,6 +9,9 @@ class PetRace extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['race', 'species_id'];
+    public $timestamps = false;
+
     protected $hidden = ['species_id'];
 
     protected $with = ['species'];

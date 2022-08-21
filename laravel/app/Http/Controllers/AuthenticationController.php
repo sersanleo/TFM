@@ -12,14 +12,14 @@ class AuthenticationController extends Controller
 {
     public function get_register()
     {
-        return view('register')->with('prueba', 'o');
+        return view('register');
     }
 
     public function post_register(Request $request)
     {
         $userInfo = $request->validate([
             'email' => 'required|email|unique:users',
-            'password' => ['required', 'confirmed', 'max:10', Password::min(8)->uncompromised()],
+            'password' => ['required', 'confirmed', Password::min(8)->uncompromised()],
             'first_name' => 'required|max:150',
             'last_name' => 'required|max:150',
             'address' => 'required|max:300',

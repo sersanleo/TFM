@@ -57,13 +57,6 @@ class RegisterTestCase(TestCase):
         self.assertRedirects(response, expected_url=reverse('login'))
         self.assertTrue(User.objects.filter(email=email).exists())
 
-    def test_login_successfully(self):
-        response = self.client.post(reverse('login'), {
-            'username': 'vet1@petclinic.com',
-            'password': 'vet1'
-        })
-        self.assertEquals(response.status_code, 302)
-
     def test_register_error(self):
         email = 'email@email.com'
         response = self.client.post(reverse('register'), {
@@ -77,3 +70,10 @@ class RegisterTestCase(TestCase):
         })
         self.assertEquals(response.status_code, 200)
         self.assertFalse(User.objects.filter(email=email).exists())
+
+    def test_login_successfully(self):
+        response = self.client.post(reverse('login'), {
+            'username': self.vet.email,
+            'password': 'vet1'
+        })
+        self.assertEquals(response.status_code, 302)

@@ -17,7 +17,7 @@ class Appointment extends Model
     ];
 
     protected $casts = [
-        'date' => 'datetime:Y-m-d',
+        'date' => 'datetime:Y-m-d H:i',
     ];
 
     protected $hidden = ['pet_id'];

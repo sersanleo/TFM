@@ -9,5 +9,8 @@ class PetSpecies extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+    public $timestamps = false;
+
     protected $table = 'pet_species';
 }
