@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Appointment;
 use App\Models\Pet;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class AppointmentSeeder extends Seeder
@@ -16,7 +17,8 @@ class AppointmentSeeder extends Seeder
      */
     public function run()
     {
-        Appointment::create(['vet_id' => User::where('is_staff', true)->first()->id, 'pet_id' => Pet::orderBy('id')->first()->id, 'date' => date('y-m-d H:i', strtotime('+1 days'))]);
-        Appointment::create(['vet_id' => User::where('is_staff', true)->first()->id, 'pet_id' => Pet::latest('id')->first()->id, 'date' => date('y-m-d H:i', strtotime('+2 days'))]);
+        $proximoLunes = Carbon::now()->next('Monday');
+        Appointment::create(['vet_id' => User::where('is_staff', true)->first()->id, 'pet_id' => Pet::orderBy('id')->first()->id, 'date' => $proximoLunes]);
+        Appointment::create(['vet_id' => User::where('is_staff', true)->first()->id, 'pet_id' => Pet::latest('id')->first()->id, 'date' =>  $proximoLunes->add(1, 'day')]);
     }
 }

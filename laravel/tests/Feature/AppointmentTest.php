@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Appointment;
 use App\Models\Pet;
 use App\Models\User;
+use Carbon\Carbon;
 use Database\Seeders\AppointmentSeeder;
 use Database\Seeders\PetRaceSeeder;
 use Database\Seeders\PetSeeder;
@@ -95,10 +96,11 @@ class AppointmentTest extends TestCase
             'date' => $otherAppointment->date
         ]);
 
+
         $response->assertInvalid();
-        $this->assertDatabaseHas('appointments', [
+        $this->assertDatabaseMissing('appointments', [
             'id' => $appointment->id,
-            'date' => $appointment->date
+            'date' => $otherAppointment->date
         ]);
     }
 
@@ -106,7 +108,7 @@ class AppointmentTest extends TestCase
     {
         $pet = Pet::first();
         $vet = User::where('is_staff', true)->first();
-        $date = date('y-m-d H:i', strtotime('+1 days'));
+        $date = Carbon::now()->next('Monday')->format('y-m-d H:i');
 
         $response = $this->actingAs($pet->owner)->post(route('appointment.create'), [
             'pet_id' => $pet->id,
