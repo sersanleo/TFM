@@ -25,6 +25,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import us.sersanleo.petclinic.models.validation.WeekdayConstraint;
+
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "vet_id", "date" }) })
@@ -46,6 +48,7 @@ public class Appointment {
     @NotNull
     @Future
     @Temporal(TemporalType.TIMESTAMP)
+    @WeekdayConstraint
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date date;
 
