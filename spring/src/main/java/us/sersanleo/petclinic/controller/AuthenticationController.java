@@ -20,7 +20,7 @@ public class AuthenticationController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping()
+    @GetMapping
     public String index() {
         return "index";
     }

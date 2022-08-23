@@ -34,7 +34,7 @@ public class PetController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping()
+    @GetMapping
     public String list(Model model, @RequestParam(required = false, defaultValue = "0") int page) {
         model.addAttribute("pagination",
                 petService.visibleBy(getUser(), PageRequest.of(page, 10).withSort(Sort.Direction.DESC, "id")));

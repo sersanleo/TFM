@@ -48,7 +48,7 @@ public class AppointmentController {
             bindingResult.rejectValue("pet", "pet.notOwner");
     }
 
-    @GetMapping()
+    @GetMapping
     public String list(Model model, @RequestParam(required = false, defaultValue = "0") int page) {
         model.addAttribute("pagination", appointmentService.visibleBy(getUser(),
                 PageRequest.of(page, 10).withSort(Sort.Direction.DESC, "id")));

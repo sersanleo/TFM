@@ -146,4 +146,18 @@ public class User {
     public String toString() {
         return this.firstName + " " + this.lastName;
     }
+
+    public User(String email, String password, String passwordConfirmation, String firstName, String lastName,
+            String address, Date birthday) {
+        this.email = email;
+        this.password = password;
+        this.passwordConfirmation = passwordConfirmation;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.birthday = birthday;
+    }
+
+    public User() {
+    }
 }
