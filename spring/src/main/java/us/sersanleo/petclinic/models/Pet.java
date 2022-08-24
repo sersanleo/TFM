@@ -2,7 +2,9 @@ package us.sersanleo.petclinic.models;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -13,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -63,6 +66,9 @@ public class Pet {
     @NotNull
     @Column(columnDefinition = "boolean default false")
     private boolean deceased;
+
+    @OneToMany(mappedBy = "pet", cascade = CascadeType.ALL)
+    private List<Appointment> appointments;
 
     @CreatedDate
     @Column(updatable = false)
@@ -164,5 +170,24 @@ public class Pet {
     @Override
     public String toString() {
         return this.name + " (" + this.owner + ")";
+    }
+
+    public Pet() {
+    }
+
+    public Pet(User owner, PetRace race, String name) {
+        this.owner = owner;
+        this.race = race;
+        this.name = name;
+    }
+
+    public Pet(User owner, PetRace race, String name, Sex sex, Date birthday, String annotations, boolean deceased) {
+        this.owner = owner;
+        this.race = race;
+        this.name = name;
+        this.sex = sex;
+        this.birthday = birthday;
+        this.annotations = annotations;
+        this.deceased = deceased;
     }
 }

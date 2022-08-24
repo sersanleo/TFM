@@ -38,4 +38,11 @@ public class PetSpecies {
     public void setName(String name) {
         this.name = name;
     }
+
+    public PetSpecies() {
+    }
+
+    public PetSpecies(String name) {
+        this.name = name;
+    }
 }

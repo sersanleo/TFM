@@ -41,11 +41,14 @@ public class AppointmentController {
     }
 
     public static void validateAppointment(Appointment appointment, BindingResult bindingResult,
-            PetService petService) {
+            PetService petService, AppointmentRepository appointmentRepository) {
         if (!bindingResult.hasFieldErrors("vet") && !appointment.getVet().isStaff())
             bindingResult.rejectValue("vet", "user.notVet");
         if (!bindingResult.hasFieldErrors("pet") && !petService.visibleBy(getUser(), appointment.getPet()))
             bindingResult.rejectValue("pet", "pet.notOwner");
+        if (!bindingResult.hasFieldErrors("date") && !bindingResult.hasFieldErrors("vet") && appointmentRepository
+                .concurs(appointment.getId(), appointment.getVet().getId(), appointment.getDate()))
+            bindingResult.rejectValue("date", "appointment.concurrent");
     }
 
     @GetMapping
@@ -64,7 +67,7 @@ public class AppointmentController {
 
     @PostMapping("/create")
     public String postCreate(@Valid Appointment appointment, BindingResult bindingResult, Model model) {
-        validateAppointment(appointment, bindingResult, petService);
+        validateAppointment(appointment, bindingResult, petService, appointmentRepository);
         if (bindingResult.hasErrors()) {
             addFormOptionsToModel(getUser(), model);
             return "appointment/edit";
@@ -93,7 +96,8 @@ public class AppointmentController {
     public String postEdit(@PathVariable Long appointmentId, @Valid Appointment appointment,
             BindingResult bindingResult, Model model) {
         if (appointmentService.visibleBy(appointmentId, getUser())) {
-            validateAppointment(appointment, bindingResult, petService);
+            appointment.setId(appointmentId);
+            validateAppointment(appointment, bindingResult, petService, appointmentRepository);
             if (bindingResult.hasErrors()) {
                 addFormOptionsToModel(getUser(), model);
                 return "appointment/edit";

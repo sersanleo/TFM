@@ -6,7 +6,7 @@ from pets.models import Pet
 
 
 class Appointment(Model):
-    pet = ForeignKey(Pet, PROTECT, verbose_name='Mascota', null=False,
+    pet = ForeignKey(Pet, CASCADE, verbose_name='Mascota', null=False,
                      blank=False)
     vet = ForeignKey(get_user_model(), PROTECT, verbose_name='Veterinario',
                      null=False, blank=False)

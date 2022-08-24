@@ -21,6 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -147,15 +148,20 @@ public class User {
         return this.firstName + " " + this.lastName;
     }
 
-    public User(String email, String password, String passwordConfirmation, String firstName, String lastName,
+    public User(String email, String password, String firstName, String lastName,
             String address, Date birthday) {
         this.email = email;
         this.password = password;
-        this.passwordConfirmation = passwordConfirmation;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.birthday = birthday;
+    }
+
+    public User(String email, String password, String firstName, String lastName,
+            String address, Date birthday, boolean isStaff) {
+        this(email, password, firstName, lastName, address, birthday);
+        this.isStaff = isStaff;
     }
 
     public User() {

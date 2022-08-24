@@ -3,7 +3,6 @@ package us.sersanleo.petclinic.models;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -37,7 +36,7 @@ public class Appointment {
 
     @NotNull
     @Valid
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     private Pet pet;
 
     @NotNull
@@ -116,5 +115,14 @@ public class Appointment {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Appointment() {
+    }
+
+    public Appointment(Pet pet, User vet, Date date) {
+        this.pet = pet;
+        this.vet = vet;
+        this.date = date;
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-07-2022 a las 20:32:24
+-- Tiempo de generación: 24-08-2022 a las 21:24:13
 -- Versión del servidor: 10.4.24-MariaDB
 -- Versión de PHP: 8.1.6
 
@@ -31,18 +31,18 @@ CREATE TABLE `appointments_appointment` (
   `id` bigint(20) NOT NULL,
   `date` datetime(6) NOT NULL,
   `annotations` longtext DEFAULT NULL,
-  `pet_id` bigint(20) NOT NULL,
-  `vet_id` bigint(20) NOT NULL,
   `created_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) NOT NULL
+  `updated_at` datetime(6) NOT NULL,
+  `pet_id` bigint(20) NOT NULL,
+  `vet_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `appointments_appointment`
 --
 
-INSERT INTO `appointments_appointment` (`id`, `date`, `annotations`, `pet_id`, `vet_id`, `created_at`, `updated_at`) VALUES
-(1, '2022-07-29 10:00:00.000000', 'Ha dejado de comer.', 1, 1, '2022-07-28 22:29:00.000000', '2022-07-28 22:29:00.000000');
+INSERT INTO `appointments_appointment` (`id`, `date`, `annotations`, `created_at`, `updated_at`, `pet_id`, `vet_id`) VALUES
+(1, '2022-07-29 10:00:00.000000', 'Ha dejado de comer.', '2022-07-28 22:29:00.000000', '2022-07-28 22:29:00.000000', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -189,40 +189,28 @@ CREATE TABLE `django_migrations` (
 --
 
 INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
-(1, 'contenttypes', '0001_initial', '2022-07-28 23:10:35.155440'),
-(2, 'contenttypes', '0002_remove_content_type_name', '2022-07-28 23:10:35.187492'),
-(3, 'auth', '0001_initial', '2022-07-28 23:10:35.307776'),
-(4, 'auth', '0002_alter_permission_name_max_length', '2022-07-28 23:10:35.339821'),
-(5, 'auth', '0003_alter_user_email_max_length', '2022-07-28 23:10:35.347806'),
-(6, 'auth', '0004_alter_user_username_opts', '2022-07-28 23:10:35.356808'),
-(7, 'auth', '0005_alter_user_last_login_null', '2022-07-28 23:10:35.364808'),
-(8, 'auth', '0006_require_contenttypes_0002', '2022-07-28 23:10:35.367806'),
-(9, 'auth', '0007_alter_validators_add_error_messages', '2022-07-28 23:10:35.375806'),
-(10, 'auth', '0008_alter_user_username_max_length', '2022-07-28 23:10:35.383811'),
-(11, 'auth', '0009_alter_user_last_name_max_length', '2022-07-28 23:10:35.393809'),
-(12, 'auth', '0010_alter_group_name_max_length', '2022-07-28 23:10:35.405856'),
-(13, 'auth', '0011_update_proxy_permissions', '2022-07-28 23:10:35.414856'),
-(14, 'auth', '0012_alter_user_first_name_max_length', '2022-07-28 23:10:35.422845'),
-(15, 'petclinic', '0001_initial', '2022-07-28 23:10:35.561028'),
-(16, 'admin', '0001_initial', '2022-07-28 23:10:35.628045'),
-(17, 'admin', '0002_logentry_remove_auto_add', '2022-07-28 23:10:35.636046'),
-(18, 'admin', '0003_logentry_add_action_flag_choices', '2022-07-28 23:10:35.647045'),
-(19, 'pets', '0001_initial', '2022-07-28 23:10:35.755437'),
-(20, 'pets', '0002_auto_20220714_2348', '2022-07-28 23:10:35.769436'),
-(21, 'appointments', '0001_initial', '2022-07-28 23:10:35.833513'),
-(22, 'appointments', '0002_auto_20220714_2355', '2022-07-28 23:10:35.881507'),
-(23, 'appointments', '0003_auto_20220721_2143', '2022-07-28 23:10:35.902543'),
-(24, 'appointments', '0004_alter_appointment_unique_together', '2022-07-28 23:10:35.925515'),
-(25, 'appointments', '0005_auto_20220722_0128', '2022-07-28 23:10:35.948505'),
-(26, 'appointments', '0006_alter_appointment_date', '2022-07-28 23:10:35.961516'),
-(27, 'petclinic', '0002_alter_user_managers', '2022-07-28 23:10:35.972505'),
-(28, 'petclinic', '0003_auto_20220721_2143', '2022-07-28 23:10:35.993521'),
-(29, 'petclinic', '0004_auto_20220722_1905', '2022-07-28 23:10:36.016542'),
-(30, 'pets', '0003_auto_20220714_2355', '2022-07-28 23:10:36.068503'),
-(31, 'pets', '0004_auto_20220721_2143', '2022-07-28 23:10:36.101503'),
-(32, 'pets', '0005_alter_pet_deceased', '2022-07-28 23:10:36.116507'),
-(33, 'pets', '0006_alter_pet_birthday', '2022-07-28 23:10:36.133503'),
-(34, 'sessions', '0001_initial', '2022-07-28 23:10:36.160505');
+(1, 'contenttypes', '0001_initial', '2022-08-24 19:20:25.807658'),
+(2, 'contenttypes', '0002_remove_content_type_name', '2022-08-24 19:20:25.836659'),
+(3, 'auth', '0001_initial', '2022-08-24 19:20:25.952891'),
+(4, 'auth', '0002_alter_permission_name_max_length', '2022-08-24 19:20:25.978908'),
+(5, 'auth', '0003_alter_user_email_max_length', '2022-08-24 19:20:25.985909'),
+(6, 'auth', '0004_alter_user_username_opts', '2022-08-24 19:20:25.991910'),
+(7, 'auth', '0005_alter_user_last_login_null', '2022-08-24 19:20:25.997913'),
+(8, 'auth', '0006_require_contenttypes_0002', '2022-08-24 19:20:26.000914'),
+(9, 'auth', '0007_alter_validators_add_error_messages', '2022-08-24 19:20:26.008912'),
+(10, 'auth', '0008_alter_user_username_max_length', '2022-08-24 19:20:26.014909'),
+(11, 'auth', '0009_alter_user_last_name_max_length', '2022-08-24 19:20:26.020920'),
+(12, 'auth', '0010_alter_group_name_max_length', '2022-08-24 19:20:26.032908'),
+(13, 'auth', '0011_update_proxy_permissions', '2022-08-24 19:20:26.041913'),
+(14, 'auth', '0012_alter_user_first_name_max_length', '2022-08-24 19:20:26.053915'),
+(15, 'petclinic', '0001_initial', '2022-08-24 19:20:26.236908'),
+(16, 'admin', '0001_initial', '2022-08-24 19:20:26.295909'),
+(17, 'admin', '0002_logentry_remove_auto_add', '2022-08-24 19:20:26.304938'),
+(18, 'admin', '0003_logentry_add_action_flag_choices', '2022-08-24 19:20:26.311944'),
+(19, 'pets', '0001_initial', '2022-08-24 19:20:26.415326'),
+(20, 'appointments', '0001_initial', '2022-08-24 19:20:26.428318'),
+(21, 'appointments', '0002_initial', '2022-08-24 19:20:26.510365'),
+(22, 'sessions', '0001_initial', '2022-08-24 19:20:26.528367');
 
 -- --------------------------------------------------------
 
@@ -236,13 +224,6 @@ CREATE TABLE `django_session` (
   `expire_date` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `django_session`
---
-
-INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
-('ebb6ztir31zzsftwgpqxr1s7y2pfto5t', '.eJxVjMsOwiAURP-FtSG8Hy7d9xvIhQtSNZCUdmX8d9ukC11NMufMvEmAba1hG3kJM5Ir4eTy20VIz9wOgA9o905Tb-syR3oo9KSDTh3z63a6fwcVRt3XSTKhODLuDNNGlyi9z1ZpIXwCQBmFVc6VmGwGKzWXIAoaxgWaPawkny-9ljcG:1oHS7O:ftk5iEq5oJ49DSn4934EoETzvXhcfIuq_ToUeX_j_ZY', '2022-08-12 15:41:38.635444');
-
 -- --------------------------------------------------------
 
 --
@@ -254,12 +235,12 @@ CREATE TABLE `petclinic_user` (
   `password` varchar(128) NOT NULL,
   `last_login` datetime(6) DEFAULT NULL,
   `is_superuser` tinyint(1) NOT NULL,
-  `first_name` varchar(150) NOT NULL,
-  `last_name` varchar(150) NOT NULL,
   `is_staff` tinyint(1) NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `date_joined` datetime(6) NOT NULL,
   `email` varchar(254) NOT NULL,
+  `first_name` varchar(150) NOT NULL,
+  `last_name` varchar(150) NOT NULL,
   `address` varchar(300) NOT NULL,
   `birthday` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -268,10 +249,10 @@ CREATE TABLE `petclinic_user` (
 -- Volcado de datos para la tabla `petclinic_user`
 --
 
-INSERT INTO `petclinic_user` (`id`, `password`, `last_login`, `is_superuser`, `first_name`, `last_name`, `is_staff`, `is_active`, `date_joined`, `email`, `address`, `birthday`) VALUES
-(1, 'pbkdf2_sha256$260000$dLC6qvDWWCC09MfxSaTVnP$sggRzYE9sUuVMhqYwVBBVNnWVz8Dv0x0PfdYhl6ukEo=', '2022-07-29 15:41:38.631445', 1, 'Luis', 'González Carrasco', 1, 1, '2022-07-28 22:00:51.000000', 'vet1@petclinic.com', 'Plaza Naia, 135, 5º 4º', '1983-01-20'),
-(2, 'pbkdf2_sha256$260000$C9GM2xbCATo6bGLCqjmMaT$nqmXECfSfLE+b+l5n/AFH8mKwjCZEU/U6yvUAeiGPEM=', NULL, 0, 'Pedro', 'Ramírez Díaz', 0, 1, '2022-07-28 22:00:51.000000', 'customer1@petclinic.com', 'Praza Ainara, 079, 81º B', '1984-02-24'),
-(3, 'pbkdf2_sha256$260000$rRf46TBX5YdI4rwoeKDKkL$sc+mfrT1uSqB39vGrG9FV5wQwNW1VFFylSX7OmrhwwM=', NULL, 0, 'Jana', 'Nieves Tercero', 0, 1, '2022-07-28 22:00:51.000000', 'customer2@petclinic.com', 'Carrer Blázquez, 624, 2º D', '1990-05-14');
+INSERT INTO `petclinic_user` (`id`, `password`, `last_login`, `is_superuser`, `is_staff`, `is_active`, `date_joined`, `email`, `first_name`, `last_name`, `address`, `birthday`) VALUES
+(1, 'pbkdf2_sha256$260000$dLC6qvDWWCC09MfxSaTVnP$sggRzYE9sUuVMhqYwVBBVNnWVz8Dv0x0PfdYhl6ukEo=', '2022-07-29 15:41:38.631445', 1, 1, 1, '2022-07-28 22:00:51.000000', 'vet1@petclinic.com', 'Luis', 'González Carrasco', 'Plaza Naia, 135, 5º 4º', '1983-01-20'),
+(2, 'pbkdf2_sha256$260000$C9GM2xbCATo6bGLCqjmMaT$nqmXECfSfLE+b+l5n/AFH8mKwjCZEU/U6yvUAeiGPEM=', NULL, 0, 0, 1, '2022-07-28 22:00:51.000000', 'customer1@petclinic.com', 'Pedro', 'Ramírez Díaz', 'Praza Ainara, 079, 81º B', '1984-02-24'),
+(3, 'pbkdf2_sha256$260000$rRf46TBX5YdI4rwoeKDKkL$sc+mfrT1uSqB39vGrG9FV5wQwNW1VFFylSX7OmrhwwM=', NULL, 0, 0, 1, '2022-07-28 22:00:51.000000', 'customer2@petclinic.com', 'Jana', 'Nieves Tercero', 'Carrer Blázquez, 624, 2º D', '1990-05-14');
 
 -- --------------------------------------------------------
 
@@ -309,22 +290,22 @@ CREATE TABLE `pets_pet` (
   `sex` varchar(1) DEFAULT NULL,
   `birthday` date DEFAULT NULL,
   `annotations` longtext DEFAULT NULL,
-  `owner_id` bigint(20) NOT NULL,
-  `race_id` bigint(20) DEFAULT NULL,
+  `deceased` tinyint(1) NOT NULL,
   `created_at` datetime(6) NOT NULL,
   `updated_at` datetime(6) NOT NULL,
-  `deceased` tinyint(1) NOT NULL
+  `owner_id` bigint(20) NOT NULL,
+  `race_id` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `pets_pet`
 --
 
-INSERT INTO `pets_pet` (`id`, `name`, `sex`, `birthday`, `annotations`, `owner_id`, `race_id`, `created_at`, `updated_at`, `deceased`) VALUES
-(1, 'Firulais', 'M', '2019-09-26', 'Fue maltratado antes de su adopción.', 2, 1, '2022-07-28 22:19:27.000000', '2022-07-28 22:19:27.000000', 0),
-(2, 'Aquiles', NULL, '2016-01-07', NULL, 2, 11, '2022-07-28 22:19:54.000000', '2022-07-28 22:19:54.000000', 0),
-(3, 'Logan', 'M', '2020-10-14', NULL, 3, 6, '2022-07-28 22:20:04.000000', '2022-07-28 22:20:04.000000', 0),
-(4, 'Manchas', 'F', '2021-06-09', NULL, 3, 12, '2022-07-28 22:20:20.000000', '2022-07-28 22:20:20.000000', 1);
+INSERT INTO `pets_pet` (`id`, `name`, `sex`, `birthday`, `annotations`, `deceased`, `created_at`, `updated_at`, `owner_id`, `race_id`) VALUES
+(1, 'Firulais', 'M', '2019-09-26', 'Fue maltratado antes de su adopción.', 0, '2022-07-28 22:19:27.000000', '2022-07-28 22:19:27.000000', 2, 1),
+(2, 'Aquiles', NULL, '2016-01-07', NULL, 0, '2022-07-28 22:19:54.000000', '2022-07-28 22:19:54.000000', 2, 11),
+(3, 'Logan', 'M', '2020-10-14', NULL, 0, '2022-07-28 22:20:04.000000', '2022-07-28 22:20:04.000000', 3, 6),
+(4, 'Manchas', 'F', '2021-06-09', NULL, 1, '2022-07-28 22:20:20.000000', '2022-07-28 22:20:20.000000', 3, 12);
 
 -- --------------------------------------------------------
 
@@ -334,7 +315,7 @@ INSERT INTO `pets_pet` (`id`, `name`, `sex`, `birthday`, `annotations`, `owner_i
 
 CREATE TABLE `pets_petrace` (
   `id` bigint(20) NOT NULL,
-  `race` varchar(30) DEFAULT NULL,
+  `race` varchar(30) NOT NULL,
   `species_id` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -529,7 +510,7 @@ ALTER TABLE `django_content_type`
 -- AUTO_INCREMENT de la tabla `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `petclinic_user`

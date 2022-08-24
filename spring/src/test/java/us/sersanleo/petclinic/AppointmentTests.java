@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,10 +24,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
+import us.sersanleo.petclinic.models.Appointment;
 import us.sersanleo.petclinic.models.Pet;
 import us.sersanleo.petclinic.models.PetRace;
 import us.sersanleo.petclinic.models.PetSpecies;
 import us.sersanleo.petclinic.models.User;
+import us.sersanleo.petclinic.repository.AppointmentRepository;
 import us.sersanleo.petclinic.repository.PetRaceRepository;
 import us.sersanleo.petclinic.repository.PetRepository;
 import us.sersanleo.petclinic.repository.PetSpeciesRepository;
@@ -38,11 +40,13 @@ import us.sersanleo.petclinic.repository.UserRepository;
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase
 @Transactional
-class PetTests {
-    private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
+class AppointmentTests {
+    private static final SimpleDateFormat DATETIME_FORMATTER = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
 
     @Autowired
     private MockMvc mockMvc;
+    @Autowired
+    private AppointmentRepository appointmentRepository;
     @Autowired
     private PetSpeciesRepository petSpeciesRepository;
     @Autowired
@@ -57,19 +61,30 @@ class PetTests {
     private User vet, customer1, customer2;
     private PetRace chihuahua, siames;
     private Pet pet1, pet2;
+    private Appointment appointment1, appointment2;
+
+    private static final int posMod(int a, int b) {
+        int res = a % b;
+        if (res < 0)
+            res += b;
+        return res;
+    }
 
     @BeforeEach
     void setup() {
         Calendar birthday = Calendar.getInstance();
         birthday.set(2000, 0, 1);
         vet = userRepository.save(
-                new User("vet1@petclinic.com", passwordEncoder.encode("vet1"), "Test vet1", "Test", "Test address",
+                new User("vet1@petclinic.com", passwordEncoder.encode("vet1"), "Test vet1", "Test",
+                        "Test address",
                         birthday.getTime(), true));
         customer1 = userRepository
-                .save(new User("customer1@petclinic.com", passwordEncoder.encode("customer1"), "Test customer1", "Test",
+                .save(new User("customer1@petclinic.com", passwordEncoder.encode("customer1"),
+                        "Test customer1", "Test",
                         "Test address", birthday.getTime()));
         customer2 = userRepository
-                .save(new User("customer2@petclinic.com", passwordEncoder.encode("customer2"), "Test customer2", "Test",
+                .save(new User("customer2@petclinic.com", passwordEncoder.encode("customer2"),
+                        "Test customer2", "Test",
                         "Test address", birthday.getTime()));
 
         PetSpecies perro = petSpeciesRepository.save(new PetSpecies("Perro")),
@@ -78,76 +93,89 @@ class PetTests {
         siames = petRaceRepository.save(new PetRace(gato, "Siamés"));
         pet1 = petRepository.save(new Pet(customer1, chihuahua, "Firulais"));
         pet2 = petRepository.save(new Pet(customer2, siames, "Bob"));
+
+        Calendar proximoLunes = Calendar.getInstance();
+        proximoLunes.set(Calendar.SECOND, 0);
+        proximoLunes.add(Calendar.DATE, 1);
+        proximoLunes.add(Calendar.DATE, posMod(-(proximoLunes.get(Calendar.DAY_OF_WEEK) - 2), 7));
+        Calendar appointment2Date = (Calendar) proximoLunes.clone();
+        appointment2Date.add(Calendar.DATE, 1);
+        appointment1 = appointmentRepository.save(new Appointment(pet1, vet, proximoLunes.getTime()));
+        appointment2 = appointmentRepository.save(new Appointment(pet2, vet, appointment2Date.getTime()));
     }
 
     @Test
     @WithUserDetails(value = "vet1@petclinic.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void deleteSuccessfully() throws Exception {
-        Pet pet = this.pet1;
+        Appointment appointment = appointment1;
 
-        mockMvc.perform(post("/pet/delete")
-                .param("pet", pet.getId().toString())
+        mockMvc.perform(post("/appointment/delete")
+                .param("appointment", appointment.getId().toString())
                 .with(csrf()));
 
-        assertFalse(petRepository.findById(pet.getId()).isPresent());
+        assertFalse(appointmentRepository.findById(appointment.getId()).isPresent());
     }
 
     @Test
-    @WithUserDetails(value = "customer1@petclinic.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    @WithUserDetails(value = "customer2@petclinic.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void deleteUnsuccessfully() throws Exception {
-        Pet pet = this.pet2;
+        Appointment appointment = appointment1;
 
-        mockMvc.perform(post("/pet/delete")
-                .param("pet", pet.getId().toString())
+        mockMvc.perform(post("/appointment/delete")
+                .param("appointment", appointment.getId().toString())
                 .with(csrf()));
 
-        assertTrue(petRepository.findById(pet.getId()).isPresent());
+        assertTrue(appointmentRepository.findById(appointment.getId()).isPresent());
     }
 
     @Test
     @WithUserDetails(value = "vet1@petclinic.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void editSuccessfully() throws Exception {
-        Pet pet = this.pet1;
-        String newName = pet.getName() + "test";
+        Appointment appointment = appointment1;
+        Calendar newDate = Calendar.getInstance();
+        newDate.setTime(appointment.getDate());
+        newDate.add(Calendar.DATE, 7);
 
-        mockMvc.perform(post("/pet/{petId}", pet.getId())
-                .param("owner", pet.getOwner().getId().toString())
-                .param("race", pet.getRace().getId().toString())
-                .param("name", newName)
+        mockMvc.perform(post("/appointment/{appointmentId}", appointment.getId())
+                .param("pet", appointment.getPet().getId().toString())
+                .param("vet", appointment.getVet().getId().toString())
+                .param("date", DATETIME_FORMATTER.format(newDate.getTime()))
                 .with(csrf()));
 
-        assertEquals(petRepository.findById(pet.getId()).get().getName(), newName);
+        assertEquals(DATETIME_FORMATTER
+                .format(appointmentRepository.findById(appointment.getId()).get().getDate()),
+                DATETIME_FORMATTER.format(newDate.getTime()));
     }
 
     @Test
     @WithUserDetails(value = "vet1@petclinic.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void editUnsuccessfully() throws Exception {
-        Pet pet = this.pet1;
-        Calendar birthday = Calendar.getInstance();
-        birthday.add(Calendar.DATE, 1);
+        Appointment appointment = appointment1;
+        Date newDate = appointment2.getDate();
 
-        mockMvc.perform(post("/pet/{petId}", pet.getId())
-                .param("owner", pet.getOwner().getId().toString())
-                .param("race", pet.getRace().getId().toString())
-                .param("name", pet.getName())
-                .param("birthday", DATE_FORMATTER.format(birthday.getTime()))
-                .with(csrf()))
-                .andExpect(model().attributeHasFieldErrors("pet", "birthday"));
+        mockMvc.perform(post("/appointment/{appointmentId}", appointment.getId())
+                .param("pet", appointment.getPet().getId().toString())
+                .param("vet", appointment.getVet().getId().toString())
+                .param("date", DATETIME_FORMATTER.format(newDate))
+                .with(csrf()));
 
-        assertEquals(petRepository.findById(pet.getId()).get().getBirthday(), pet.getBirthday());
+        assertEquals(DATETIME_FORMATTER
+                .format(appointmentRepository.findById(appointment.getId()).get().getDate()),
+                DATETIME_FORMATTER.format(appointment.getDate()));
     }
 
     @Test
     @WithUserDetails(value = "vet1@petclinic.com", setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void createSuccessfully() throws Exception {
-        long count = petRepository.count();
+        appointmentRepository.deleteAll(); // Eliminamos todas las citas para evitar colisiones de fecha
+        long count = appointmentRepository.count();
 
-        mockMvc.perform(post("/pet/create")
-                .param("owner", customer1.getId().toString())
-                .param("race", chihuahua.getId().toString())
-                .param("name", "Test pet")
+        mockMvc.perform(post("/appointment/create")
+                .param("pet", pet1.getId().toString())
+                .param("vet", vet.getId().toString())
+                .param("date", DATETIME_FORMATTER.format(appointment1.getDate()))
                 .with(csrf()));
 
-        assertEquals(petRepository.count(), count + 1);
+        assertEquals(appointmentRepository.count(), count + 1);
     }
 }

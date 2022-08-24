@@ -57,4 +57,12 @@ public class PetRace {
     public String toString() {
         return this.race.length() > 0 ? this.species.getName() + " (" + this.race + ")" : this.species.getName();
     }
+
+    public PetRace() {
+    }
+
+    public PetRace(PetSpecies species, String race) {
+        this.species = species;
+        this.race = race;
+    }
 }
