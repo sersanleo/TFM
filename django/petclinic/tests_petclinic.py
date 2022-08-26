@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 
 from appointments.models import *
-from django.test import TestCase
+from django.test import Client, TestCase
 from django.urls import reverse
 from django.utils import timezone
 from pets.models import *
@@ -21,6 +21,7 @@ class RegisterTestCase(TestCase):
             'address': 'Test',
             'birthday': '2000-01-01',
         })
+
         self.assertRedirects(response, expected_url=reverse('login'))
         self.assertTrue(User.objects.filter(email=email).exists())
 
@@ -35,6 +36,8 @@ class RegisterTestCase(TestCase):
             'address': 'Test',
             'birthday': '2000-01-01',
         })
+
+        self.assertFormError(response, 'form', 'password2', None)
         self.assertEquals(response.status_code, 200)
         self.assertFalse(User.objects.filter(email=email).exists())
 
