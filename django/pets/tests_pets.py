@@ -81,7 +81,7 @@ class PetTestCase(TestCase):
             'birthday':  (timezone.now() + timedelta(days=2)).strftime('%Y-%m-%d')
         })
 
-        self.assertFormError(response, 'form', 'birthday', None)
+        self.assertTrue(response.context['form'].errors['birthday'])
         self.assertEquals(Pet.objects.first().birthday, pet.birthday)
         self.assertEquals(response.status_code, 200)
 

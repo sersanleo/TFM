@@ -37,7 +37,7 @@ class RegisterTestCase(TestCase):
             'birthday': '2000-01-01',
         })
 
-        self.assertFormError(response, 'form', 'password2', None)
+        self.assertTrue(response.context['form'].errors['password2'])
         self.assertEquals(response.status_code, 200)
         self.assertFalse(User.objects.filter(email=email).exists())
 

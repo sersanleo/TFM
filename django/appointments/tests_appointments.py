@@ -91,7 +91,7 @@ class AppointmentTestCase(TestCase):
             'date': new_date
         })
 
-        self.assertFormError(response, 'form', 'date', None)
+        self.assertTrue(response.context['form'].errors['__all__'])
         self.assertEquals(
             Appointment.objects.first().date, appointment.date)
         self.assertEquals(response.status_code, 200)
