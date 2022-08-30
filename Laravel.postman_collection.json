@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "8af41a84-7f0b-4ca5-bf3c-e93ec99ec9fb",
+		"name": "Laravel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16785718"
+	},
+	"item": [
+		{
+			"name": "Pet",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pet",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pet"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pet/:pet",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pet",
+								":pet"
+							],
+							"variable": [
+								{
+									"key": "pet",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"owner_id\": 1,\r\n    \"race_id\": 1,\r\n    \"name\": \"name\",\r\n    \"annotations\": null,\r\n    \"birthday\": \"2020-10-14\",\r\n    \"sex\": \"M\",\r\n    \"deceased\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/pet",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"owner_id\": 1,\r\n    \"race_id\": 1,\r\n    \"name\": \"name\",\r\n    \"annotations\": null,\r\n    \"birthday\": \"2020-10-14\",\r\n    \"sex\": \"M\",\r\n    \"deceased\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/pet/:pet",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pet",
+								":pet"
+							],
+							"variable": [
+								{
+									"key": "pet",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/pet/:pet",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"pet",
+								":pet"
+							],
+							"variable": [
+								{
+									"key": "pet",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Appointment",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/appointment",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"appointment"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/appointment/:appointment",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"appointment",
+								":appointment"
+							],
+							"variable": [
+								{
+									"key": "appointment",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pet_id\": 2,\r\n    \"vet_id\": 1,\r\n    \"date\": \"2022-09-30 10:00\",\r\n    \"annotations\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/appointment",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"appointment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pet_id\": 2,\r\n    \"vet_id\": 1,\r\n    \"date\": \"2022-09-30 10:00\",\r\n    \"annotations\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/appointment/:appointment",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"appointment",
+								":appointment"
+							],
+							"variable": [
+								{
+									"key": "appointment",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/appointment/:appointment",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"appointment",
+								":appointment"
+							],
+							"variable": [
+								{
+									"key": "appointment",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "List pet races",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/petrace/",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"petrace",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List vets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/vet/",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"vet",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "BcdQ1kIZ7U7leSO5nui7qEjG2Cf8cqUSrSfbqjIF",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://127.0.0.1:8001/api",
+			"type": "string"
+		}
+	]
+}
