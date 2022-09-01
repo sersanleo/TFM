@@ -25,7 +25,7 @@
                             <th>Fecha de nacimiento</th>
                         </tr>
                     </thead>
-                    <tbody class=" align-middle text-nowrap">
+                    <tbody class="align-middle text-nowrap">
                         @foreach ($pets as $pet)
                             <tr>
                                 @if (Auth::user()->is_staff)

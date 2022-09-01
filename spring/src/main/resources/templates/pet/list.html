@@ -20,7 +20,7 @@
                                 <th>Fecha de nacimiento</th>
                             </tr>
                         </thead>
-                        <tbody class=" align-middle text-nowrap">
+                        <tbody class="align-middle text-nowrap">
                             <tr th:each="pet : ${pagination.getContent()}">
                                 <td class="shrink" sec:authorize="hasAuthority('VET')">
                                     <div class="d-flex gap-3">

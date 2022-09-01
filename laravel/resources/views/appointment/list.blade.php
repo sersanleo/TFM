@@ -18,7 +18,7 @@
                             <th>Fecha y hora</th>
                         </tr>
                     </thead>
-                    <tbody class=" align-middle text-nowrap">
+                    <tbody class="align-middle text-nowrap">
                         @foreach ($appointments as $appointment)
                             <tr>
                                 <td class="shrink">
