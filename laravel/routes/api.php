@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum', 'api.headers')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::apiResources([
         'pet' => PetAPIController::class,
         'appointment' => AppointmentAPIController::class,
