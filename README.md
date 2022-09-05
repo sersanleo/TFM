@@ -8,17 +8,22 @@ En este repositorio se encuentra una misma aplicación web (PetClinic) desarroll
 ## Prerequisitos
 Todas las apliacaciones han sido desarrolladas y probadas en Windows.
 ### Django
-Para correr el servidor es necesario tener instalada la versión de Python 3.8 como mínimo (se ha comprobado que funciona al menos con la versión 3.9). Después, ejecutar el comando `pip install -r requirements.txt` para instalar todos los paquetes necesarios.
+Es necesario tener instalada la versión de Python 3.8 como mínimo (se ha comprobado que funciona con la versión 3.9). Después, ejecutar el comando `pip install -r requirements.txt` para instalar todos los paquetes necesarios.
 ### Laravel
-...
+Hace falta tener instalado PHP (https://www.php.net/downloads) y Composer (https://getcomposer.org/). Una vez hecho esto, en la ruta `/laravel` se ejecuta el comando `composer install`, que instalará todas las dependencias necesarias.
 ### Spring
-...
+Es necesario tener instalado Java 11 y Apache Maven (https://maven.apache.org/download.cgi).
 
 ## Bases de datos
 Por defecto, las aplicaciones están configurados para conectarse a un servidor MySQL en el puerto 3306 de localhost, utilizando un usuario `root` sin contraseña y una base de datos con el siguiente nombre:
 - Django: tfm_django
 - Laravel: tfm_laravel
 - Spring: tfm_spring
+
+Para modificar la conexión a la base de datos de cada framework:
+- Django: modificar variable `DATABASES` del archivo `/django/petclinic/settings.py`
+- Laravel: modificar el archivo `/laravel/config/database.php`
+- Spring: modificar las variables con el prefijo `spring.datasource.` del archivo `/spring/src/main/resources/application.properties`
 
 En la carpeta raíz del repositorio se encuentran tres archivos `.sql`, cada uno con el código SQL necesario para generar la estructura de las bases de datos con los datos de prueba utilizados durante el desarrollo.
 
