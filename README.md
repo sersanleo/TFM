@@ -1,4 +1,4 @@
-# Comparativa de frameworks fullstack
+# Comparativa de frameworks full stack
 En este repositorio se encuentra una misma aplicación web (PetClinic) desarrollada con los siguiente sujetos a comparación:
 
 - Django 4.0.3
