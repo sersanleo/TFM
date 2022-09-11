@@ -45,7 +45,7 @@ class Pet(Model):
         Male = 'M', 'Macho'
 
     owner = ForeignKey(get_user_model(), PROTECT, verbose_name='Dueño', null=False,
-                       blank=False, limit_choices_to=Q())
+                       blank=False)
     race = ForeignKey(PetRace, PROTECT, verbose_name='Raza',
                       null=True,  blank=True)
 
