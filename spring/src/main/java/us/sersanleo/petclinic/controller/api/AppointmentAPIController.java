@@ -65,7 +65,8 @@ public class AppointmentAPIController {
 
     @PostMapping
     public ResponseEntity create(@Validated @RequestBody Appointment appointment, BindingResult bindingResult) {
-        AppointmentController.validateAppointment(appointment, bindingResult, petService);
+        AppointmentController.validateAppointment(appointment, bindingResult, petService, appointmentRepository,
+                appointmentService);
         if (bindingResult.hasErrors())
             return getErrorResponse(bindingResult);
         appointmentRepository.save(appointment);
@@ -76,7 +77,8 @@ public class AppointmentAPIController {
     public ResponseEntity update(@PathVariable Long appointmentId, @Validated @RequestBody Appointment appointment,
             BindingResult bindingResult) {
         if (appointmentService.visibleBy(appointmentId, getUser())) {
-            AppointmentController.validateAppointment(appointment, bindingResult, petService);
+            AppointmentController.validateAppointment(appointment, bindingResult, petService, appointmentRepository,
+                    appointmentService);
             if (bindingResult.hasErrors())
                 return getErrorResponse(bindingResult);
             appointment.setId(appointmentId);

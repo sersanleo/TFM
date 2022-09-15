@@ -1,5 +1,6 @@
 package us.sersanleo.petclinic.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,11 @@ public class AppointmentService {
             return appointmentRepository.findAll();
         else
             return appointmentRepository.findAllByPetOwnerId(user.getId());
+    }
+
+    public boolean concurs(Long id, Long vetId, Date date) {
+        if (id != null)
+            return appointmentRepository.concurs(id, vetId, date);
+        return appointmentRepository.concurs(vetId, date);
     }
 }

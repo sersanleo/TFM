@@ -22,4 +22,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     @Query("SELECT CASE WHEN COUNT(appointment) > 0 THEN true ELSE false END FROM Appointment appointment WHERE appointment.id <> :id AND appointment.vet.id = :vetId AND appointment.date = :date")
     boolean concurs(Long id, Long vetId, Date date);
+
+    @Query("SELECT CASE WHEN COUNT(appointment) > 0 THEN true ELSE false END FROM Appointment appointment WHERE appointment.vet.id = :vetId AND appointment.date = :date")
+    boolean concurs(Long vetId, Date date);
 }

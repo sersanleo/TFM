@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'petclinic',
     'pets',
-    'appointments',
-    'api'
+    'appointments'
 ]
 
 MIDDLEWARE = [

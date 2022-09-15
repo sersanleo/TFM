@@ -36,7 +36,8 @@ class RegisterForm(UserCreationForm):
 
     def is_valid(self):
         result = super().is_valid()
-        for x in (self.fields if '__all__' in self.errors else self.errors):
-            attrs = self.fields[x].widget.attrs
-            attrs.update({'class': attrs.get('class', '') + ' is-invalid'})
+        for x in self.errors:
+             if x != '__all__':
+                attrs = self.fields[x].widget.attrs
+                attrs.update({'class': attrs.get('class', '') + ' is-invalid'})
         return result
