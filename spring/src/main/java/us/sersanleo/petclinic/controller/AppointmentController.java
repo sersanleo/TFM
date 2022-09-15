@@ -46,8 +46,6 @@ public class AppointmentController {
             bindingResult.rejectValue("vet", "user.notVet");
         if (!bindingResult.hasFieldErrors("pet") && !petService.visibleBy(getUser(), appointment.getPet()))
             bindingResult.rejectValue("pet", "pet.notOwner");
-        System.out.println(appointmentRepository.concurs(appointment.getId(), appointment.getVet().getId(),
-                appointment.getDate()));
         if (!bindingResult.hasFieldErrors("date") && !bindingResult.hasFieldErrors("vet") && appointmentService
                 .concurs(appointment.getId(), appointment.getVet().getId(), appointment.getDate()))
             bindingResult.rejectValue("date", "appointment.concurrent");
